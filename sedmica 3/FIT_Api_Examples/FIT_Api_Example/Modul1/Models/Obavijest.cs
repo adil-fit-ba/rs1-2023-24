@@ -13,8 +13,10 @@ namespace FIT_Api_Example.Modul1.Models
         public string Tekst {get;set;}
         public DateTime DatumKreiranja { get; set; }
 
-        [ForeignKey(nameof(EvidentiraoKorisnik))]
-        public int EvidentiraoKorisnikID { get; set; }
+     
+       
+        public int CreatedByKorisnikID { get; set; }
+        [ForeignKey(nameof(CreatedByKorisnikID))]
         public KorisnickiNalog EvidentiraoKorisnik { get; set; }
 
 
