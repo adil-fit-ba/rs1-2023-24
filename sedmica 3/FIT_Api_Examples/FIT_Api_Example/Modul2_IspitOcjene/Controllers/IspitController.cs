@@ -14,8 +14,9 @@ namespace FIT_Api_Example.Modul2_IspitOcjene.Controllers
         {
             _applicationDbContext = applicationDbContext;
         }
+
         [HttpGet()]
-        public ActionResult Proba0(string? naziv)
+        public List<IspitGet> Proba0(string? naziv)
         {
             var rezultat = _applicationDbContext
                 .Ispit
@@ -31,7 +32,7 @@ namespace FIT_Api_Example.Modul2_IspitOcjene.Controllers
                     Bodovi = x.Predmet.Ects
                 }).ToList();
 
-            return Ok(rezultat);
+            return rezultat;
         }
 
         [HttpGet()]
@@ -47,7 +48,7 @@ namespace FIT_Api_Example.Modul2_IspitOcjene.Controllers
         }
 
         [HttpPost()]
-        public object Proba3_query_parametrima(int predmetId, DateTime satnica, string komentar)
+        public Ispit Proba3_query_parametrima(int predmetId, DateTime satnica, string komentar)
         {
             var noviObj = new Ispit
             {
@@ -63,7 +64,7 @@ namespace FIT_Api_Example.Modul2_IspitOcjene.Controllers
         }
 
         [HttpPost()]
-        public object Proba3_body_parametrima([FromBody] IspitPost podaci)
+        public Ispit Proba3_body_parametrima([FromBody] IspitPost podaci)
         {
             var noviObj = new Ispit
             {
