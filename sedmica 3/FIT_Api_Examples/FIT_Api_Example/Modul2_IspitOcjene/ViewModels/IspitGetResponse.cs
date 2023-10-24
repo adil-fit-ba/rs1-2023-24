@@ -1,6 +1,6 @@
 ﻿namespace FIT_Api_Example.Modul2_IspitOcjene
 {
-    public class IspitGet
+    public class IspitGetResponse
     {
         public int IdIspita { get; set; }
         public string Komnt { get; set; }

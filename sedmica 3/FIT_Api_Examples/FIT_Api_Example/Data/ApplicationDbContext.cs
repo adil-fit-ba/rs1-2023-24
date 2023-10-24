@@ -19,6 +19,7 @@ namespace FIT_Api_Example.Data
         public DbSet<AkademskaGodina> AkademskaGodina { get; set; }
         public DbSet<Ispit> Ispit{ get; set; }
         public DbSet<PrijavaIspita> PrijavaIspita{ get; set; }
+        public DbSet<StudentPredmet> StudentPredmet { get; set; }
 
 
         public ApplicationDbContext(

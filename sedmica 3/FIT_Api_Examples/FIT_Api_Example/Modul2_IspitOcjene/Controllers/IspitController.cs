@@ -8,6 +8,7 @@ namespace FIT_Api_Example.Modul2_IspitOcjene.Controllers
     [Route("[controller]/[action]")]
     public class IspitController : ControllerBase
     {
+        //prodekan - opcije
         private readonly ApplicationDbContext _applicationDbContext;
 
         public IspitController(ApplicationDbContext applicationDbContext)
@@ -15,13 +16,13 @@ namespace FIT_Api_Example.Modul2_IspitOcjene.Controllers
             _applicationDbContext = applicationDbContext;
         }
 
-        [HttpGet()]
-        public List<IspitGet> Proba0(string? naziv)
+        [HttpGet]
+        public List<IspitGetResponse> Get(string? naziv)
         {
             var rezultat = _applicationDbContext
                 .Ispit
                 .Where(x=>naziv == null || x.Predmet.Naziv.ToLower().StartsWith(naziv.ToLower()))
-                .Select(x => new IspitGet
+                .Select(x => new IspitGetResponse
                 {
                     IdIspita = x.ID,
                     Komnt = x.Komentar,
@@ -35,21 +36,28 @@ namespace FIT_Api_Example.Modul2_IspitOcjene.Controllers
             return rezultat;
         }
 
-        [HttpGet()]
-        public object Proba1(string a, string b)
-        {
-            return "neka poruka";
-        }
-
+      
         [HttpPut()]
-        public object Proba2(string a, string b)
+        public ActionResult UpdateIspita([FromBody] IspitUpdateRequest podaci)
         {
-            return "neka poruka 2";
+            var ispit = _applicationDbContext.Ispit.Where(x => x.ID == podaci.IspitId).FirstOrDefault();
+            if (ispit == null)
+            {
+                return new NotFoundResult();
+            }
+
+            ispit.DatumVrijemeIspita = podaci.Satnica;
+            ispit.Komentar = podaci.Komentar;
+            //ispit.PredmetID = podaci.PredmetId;//ipak zabraniti izmjenu predmeta
+            _applicationDbContext.SaveChanges();//saveChanges izvršava insert, update, delete
+
+            return Ok(ispit);//vraca status 200 i json od "ispit"
         }
 
-        [HttpPost()]
-        public Ispit Proba3_query_parametrima(int predmetId, DateTime satnica, string komentar)
+        [HttpPost]
+        public Ispit DodajIspitNeispravno(int predmetId, DateTime satnica, string komentar)
         {
+            //neispravno jer ne treba slati nove podatke u query parametru... jer je to dio URL-a
             var noviObj = new Ispit
             {
                 PredmetID = predmetId,
@@ -63,8 +71,8 @@ namespace FIT_Api_Example.Modul2_IspitOcjene.Controllers
             return noviObj;
         }
 
-        [HttpPost()]
-        public Ispit Proba3_body_parametrima([FromBody] IspitPost podaci)
+        [HttpPost]
+        public Ispit DodajIspit([FromBody] IspitInsertRequest podaci)
         {
             var noviObj = new Ispit
             {
@@ -80,15 +88,19 @@ namespace FIT_Api_Example.Modul2_IspitOcjene.Controllers
         }
 
         [HttpDelete()]
-        public object Proba4(string a, string b)
+        public object Obrisi(int ispitId)
         {
-            return "neka poruka 4";
-        }
+            //1 get objekat
+            var ispit = _applicationDbContext.Ispit.Where(x => x.ID == ispitId).FirstOrDefault();
+            if (ispit == null)
+            {
+                return new NotFoundResult();
+            }
 
-        [HttpPatch()]
-        public object Proba5(string a, string b)
-        {
-            return "neka poruka 5";
+            _applicationDbContext.Remove(ispit);
+            _applicationDbContext.SaveChanges();
+
+            return "uspjesno obrisan";
         }
     }
 }
