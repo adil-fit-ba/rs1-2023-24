@@ -16,7 +16,7 @@ namespace FIT_Api_Example.Endpoints.Ispit.Update
         }
 
         [HttpPost]
-        public override IspitUpdateResponse Obradi([FromBody] IspitUpdateRequest request)
+        public override async Task<IspitUpdateResponse> Obradi([FromBody] IspitUpdateRequest request)
         {
             var ispiti = _applicationDbContext.Ispit.FirstOrDefault(x => x.ID == request.Id);
 
@@ -28,7 +28,7 @@ namespace FIT_Api_Example.Endpoints.Ispit.Update
             ispiti.Komentar = request.Komentar;
             ispiti.DatumVrijemeIspita = request.Satnica;
 
-            _applicationDbContext.SaveChanges();//izvrašva se "insert into Ispit value ...."
+            await _applicationDbContext.SaveChangesAsync();//izvrašva se "insert into Ispit value ...."
 
             return new IspitUpdateResponse
             {

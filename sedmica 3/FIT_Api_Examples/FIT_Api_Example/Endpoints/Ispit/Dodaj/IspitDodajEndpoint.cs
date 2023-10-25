@@ -15,7 +15,7 @@ namespace FIT_Api_Example.Endpoints.Ispit.Dodaj
         }
 
         [HttpPost]
-        public override IspitDodajResponse Obradi([FromBody]IspitDodajRequest request)
+        public override async Task<IspitDodajResponse> Obradi([FromBody]IspitDodajRequest request)
         {
             var noviObj = new Data.Models.Ispit
             {
@@ -25,7 +25,7 @@ namespace FIT_Api_Example.Endpoints.Ispit.Dodaj
             };
             _applicationDbContext.Ispit.Add(noviObj);//
 
-            _applicationDbContext.SaveChanges();//izvrašva se "insert into Ispit value ...."
+            await _applicationDbContext.SaveChangesAsync();//izvrašva se "insert into Ispit value ...."
 
             return new IspitDodajResponse
             {

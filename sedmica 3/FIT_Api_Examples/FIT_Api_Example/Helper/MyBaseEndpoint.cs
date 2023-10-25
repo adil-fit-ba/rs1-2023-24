@@ -5,6 +5,6 @@ namespace FIT_Api_Example.Helper
     [ApiController]
     public abstract class MyBaseEndpoint<TRequest, TResponse>:ControllerBase
     {
-        public abstract TResponse Obradi(TRequest request);
+        public abstract Task<TResponse> Obradi(TRequest request);
     }
 }
