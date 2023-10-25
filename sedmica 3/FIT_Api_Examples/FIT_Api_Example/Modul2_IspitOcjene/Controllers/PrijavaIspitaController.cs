@@ -1,5 +1,5 @@
 ﻿using FIT_Api_Example.Data;
-using FIT_Api_Example.Modul2_IspitOcjene.Models;
+using FIT_Api_Example.Data.Models;
 using FIT_Api_Example.Modul2_IspitOcjene.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 

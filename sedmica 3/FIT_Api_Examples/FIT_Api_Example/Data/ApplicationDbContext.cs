@@ -1,6 +1,4 @@
-﻿using FIT_Api_Example.Modul0_Autentifikacija.Models;
-using FIT_Api_Example.Modul1.Models;
-using FIT_Api_Example.Modul2_IspitOcjene.Models;
+﻿using FIT_Api_Example.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace FIT_Api_Example.Data
