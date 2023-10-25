@@ -1,7 +1,7 @@
 ﻿using FIT_Api_Example.Data;
+using FIT_Api_Example.Data.Models;
 using FIT_Api_Example.Helper;
 using FIT_Api_Example.Helper.AutentifikacijaAutorizacija;
-using FIT_Api_Example.Modul0_Autentifikacija.Models;
 using FIT_Api_Example.Modul0_Autentifikacija.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 

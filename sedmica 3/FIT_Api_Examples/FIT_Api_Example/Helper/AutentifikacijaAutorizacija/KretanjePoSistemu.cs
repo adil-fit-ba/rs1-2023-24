@@ -1,5 +1,5 @@
 ﻿using FIT_Api_Example.Data;
-using FIT_Api_Example.Modul0_Autentifikacija.Models;
+using FIT_Api_Example.Data.Models;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http.Extensions;
 
