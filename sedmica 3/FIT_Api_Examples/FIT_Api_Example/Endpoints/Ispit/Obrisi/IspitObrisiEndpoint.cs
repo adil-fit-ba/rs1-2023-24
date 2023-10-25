@@ -16,7 +16,7 @@ namespace FIT_Api_Example.Endpoints.Ispit.Obrisi
         }
 
         [HttpDelete]
-        public override async Task<IspitObrisiResponse> Obradi([FromQuery] IspitObrisiRequest request)
+        public override async Task<IspitObrisiResponse> Obradi([FromQuery] IspitObrisiRequest request, CancellationToken cancellationToken = default)
         {
 
             var ispiti = _applicationDbContext.Ispit.FirstOrDefault(x => x.ID == request.IspitID);
