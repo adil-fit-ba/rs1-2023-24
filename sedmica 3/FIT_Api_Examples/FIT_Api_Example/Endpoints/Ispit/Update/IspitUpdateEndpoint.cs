@@ -2,6 +2,7 @@
 using FIT_Api_Example.Data.Models;
 using FIT_Api_Example.Helper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FIT_Api_Example.Endpoints.Ispit.Update
 {
@@ -18,7 +19,7 @@ namespace FIT_Api_Example.Endpoints.Ispit.Update
         [HttpPost]
         public override async Task<IspitUpdateResponse> Obradi([FromBody] IspitUpdateRequest request, CancellationToken cancellationToken = default)
         {
-            var ispiti = _applicationDbContext.Ispit.FirstOrDefault(x => x.ID == request.Id);
+            var ispiti = await _applicationDbContext.Ispit.FirstOrDefaultAsync(x => x.ID == request.Id, cancellationToken);
 
             if (ispiti == null)
             {
@@ -28,7 +29,7 @@ namespace FIT_Api_Example.Endpoints.Ispit.Update
             ispiti.Komentar = request.Komentar;
             ispiti.DatumVrijemeIspita = request.Satnica;
 
-            await _applicationDbContext.SaveChangesAsync();//izvrašva se "insert into Ispit value ...."
+            await _applicationDbContext.SaveChangesAsync(cancellationToken);//izvrašva se "insert into Ispit value ...."
 
             return new IspitUpdateResponse
             {

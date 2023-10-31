@@ -25,7 +25,7 @@ namespace FIT_Api_Example.Endpoints.Ispit.Dodaj
             };
             _applicationDbContext.Ispit.Add(noviObj);//
 
-            await _applicationDbContext.SaveChangesAsync();//izvrašva se "insert into Ispit value ...."
+            await _applicationDbContext.SaveChangesAsync(cancellationToken);//izvrašva se "insert into Ispit value ...."
 
             return new IspitDodajResponse
             {

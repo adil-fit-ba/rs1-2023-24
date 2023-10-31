@@ -30,7 +30,7 @@ namespace FIT_Api_Example.Endpoints.Ispit.Pretraga
                     PuniNaziv = x.Predmet.Naziv,
                     SifraPredmeta = x.Predmet.Sifra,
                     Bodovi = x.Predmet.Ects
-                }).ToListAsync();
+                }).ToListAsync(cancellationToken: cancellationToken);
 
             return new IspitPretragaResponse
             {

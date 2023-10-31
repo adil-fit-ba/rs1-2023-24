@@ -2,6 +2,7 @@
 using FIT_Api_Example.Data.Models;
 using FIT_Api_Example.Modul1.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FIT_Api_Example.Modul1.Controllers
 {
@@ -18,7 +19,7 @@ namespace FIT_Api_Example.Modul1.Controllers
         }
 
         [HttpPost]
-        public Opstina Add([FromBody] OpstinaAddVM x)
+        public async Task<Opstina> Add([FromBody] OpstinaAddVM x, CancellationToken cancellationToken)
         {
             var newEmployee = new Opstina
             {
@@ -27,12 +28,12 @@ namespace FIT_Api_Example.Modul1.Controllers
             };
 
             _dbContext.Add(newEmployee);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync(cancellationToken);
             return newEmployee;
         }
 
         [HttpGet]
-        public ActionResult GetByDrzava(int drzava_id)
+        public async Task<ActionResult> GetByDrzava(int drzava_id, CancellationToken cancellationToken)
         {
             var data = _dbContext.Opstina.Where(x => x.DrzavaID == drzava_id)
                 .OrderBy(s => s.description)
@@ -42,7 +43,7 @@ namespace FIT_Api_Example.Modul1.Controllers
                     opis = s.drzava.Naziv + " - " + s.description,
                 })
                 .AsQueryable();
-            return Ok(data.Take(100).ToList());
+            return Ok(await data.Take(100).ToListAsync(cancellationToken));
         }
 
         [HttpGet]

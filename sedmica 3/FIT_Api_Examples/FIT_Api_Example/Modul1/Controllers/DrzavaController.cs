@@ -2,6 +2,7 @@
 using FIT_Api_Example.Data.Models;
 using FIT_Api_Example.Modul1.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FIT_Api_Example.Modul1.Controllers
 {
@@ -19,7 +20,7 @@ namespace FIT_Api_Example.Modul1.Controllers
 
      
         [HttpPost]
-        public Drzava Snimi([FromBody] DrzavaSnimiVM x)
+        public async Task<Drzava> Snimi([FromBody] DrzavaSnimiVM x, CancellationToken cancellationToken)
         {
             Drzava? objekat;
 
@@ -30,18 +31,18 @@ namespace FIT_Api_Example.Modul1.Controllers
             }
             else
             {
-                objekat = _dbContext.Drzava.Find(x.id);
+                objekat = await _dbContext.Drzava.FindAsync(x.id);
             }
 
             objekat.Naziv = x.naziv;
             objekat.Skracenica = x.skracenica;
 
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync(cancellationToken);
             return objekat;
         }
 
         [HttpGet]
-        public ActionResult GetAll()
+        public async Task<ActionResult> GetAll(CancellationToken cancellationToken)
         {
             var data = _dbContext.Drzava
                 .OrderBy(s => s.Naziv)
@@ -52,7 +53,24 @@ namespace FIT_Api_Example.Modul1.Controllers
                     naziv = s.Naziv,
                 })
                 .Take(100);
-            return Ok(data.ToList());
+            var rezultat = await data.ToListAsync(cancellationToken);
+            return Ok(rezultat);
+        }
+
+        [HttpGet]
+        public async Task<List<DrzavaGetAllVM>> GetAll2(CancellationToken cancellationToken)
+        {
+            var data = _dbContext.Drzava
+                .OrderBy(s => s.Naziv)
+                .Select(s => new DrzavaGetAllVM()
+                {
+                    id = s.ID,
+                    skracenica = s.Skracenica,
+                    naziv = s.Naziv,
+                })
+                .Take(100);
+            List<DrzavaGetAllVM> rezultat = await data.ToListAsync(cancellationToken);
+            return rezultat;
         }
     }
 

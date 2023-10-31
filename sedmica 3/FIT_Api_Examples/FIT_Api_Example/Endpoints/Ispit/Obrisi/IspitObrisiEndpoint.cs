@@ -27,7 +27,7 @@ namespace FIT_Api_Example.Endpoints.Ispit.Obrisi
             }
 
             _applicationDbContext.Remove(ispiti);
-            await _applicationDbContext.SaveChangesAsync();
+            await _applicationDbContext.SaveChangesAsync(cancellationToken);
 
             return new IspitObrisiResponse
             {
