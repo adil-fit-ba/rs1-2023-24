@@ -1,27 +1,12 @@
-<h2>Hello FIT</h2>
-ime : {{ime}}
-brojac : {{brojac}}
-<br>
-<input value="{{ime}}" (input)="izmjenaImena($event)">
-<br>
-<input [(ngModel)]="ime">
-<br>
-<button (click)="uvecaj()">Dugme 1 ++</button>
-<button (click)="testirajDugme2()">Dugme 2 alert</button>
+<button (click)="isVidljivoSedmica4 = !isVidljivoSedmica4">Sedmica 4 {{isVidljivoSedmica4?'da':'ne'}}</button>
+<button (click)="isVidljivoSedmica5 = !isVidljivoSedmica5">Sedmica 5 {{isVidljivoSedmica5?'da':'ne'}}</button>
 
-<div *ngIf="isVidljiv()" [ngStyle]="styleZaDiv()">
-  {{ime}}
+<div *ngIf="isVidljivoSedmica4" style="border:1px solid red">
+  <app-sedmica4></app-sedmica4>
+</div>
+
+<div *ngIf="isVidljivoSedmica5" style="border:1px solid red">
+  <app-sedmica5></app-sedmica5>
 </div>
 
 
-<div style="border: 1px solid red" *ngFor="let x of imena">
-  {{x}}
-</div>
-<br>
-
-Novo ime<br>
-<input [(ngModel)]="novoIme"><br>
-<button (click)="dodajNovoIme()">Dodaj novo ime</button>
-
-
-<img src="/assets/slika1.png">
