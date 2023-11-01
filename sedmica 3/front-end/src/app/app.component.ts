@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   isVidljivoSedmica4 = false;
+  isVidljivoSedmica5 = false;
   isVidljivoSedmica5PretragaJs = false;
   isVidljivoSedmica5PretragaBackend = false;
 
