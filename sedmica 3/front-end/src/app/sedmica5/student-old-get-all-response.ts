@@ -1,9 +1,9 @@
-export interface StudentGetAllResponse{
+export interface StudentOldGetAllResponse {
   ime: string
   prezime: string
   brojIndeksa: string
   opstinaRodjenjaID: number
-  opstinaRodjenja: StudentGetAllResponseOpstinaRodjenja
+  opstinaRodjenja: StudentOldGetAllResponseOpstinaRodjenja
   datumRodjenja: string
   id: number
   korisnickoIme: string
@@ -16,15 +16,15 @@ export interface StudentGetAllResponse{
   isStudentskaSluzba: boolean
 }
 
-export interface StudentGetAllResponseOpstinaRodjenja{
+export interface StudentOldGetAllResponseOpstinaRodjenja {
   id: number
   description: string
   drzavaID: number
-  drzava: StudentGetAllResponseDrzava
+  drzava: StudentOldGetAllResponseDrzava
 }
 
 
-export interface StudentGetAllResponseDrzava {
+export interface StudentOldGetAllResponseDrzava {
   id: number
   naziv: string
   skracenica: any
