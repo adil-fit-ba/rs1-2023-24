@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace FIT_Api_Example.Endpoints.StudentEndpoints.GetAll;
 
 [Route("student")]
-public class StudentGetAllEndpoint: MyBaseEndpoint<StudentGetAllRequest,  StudentGetAllResponse>
+public class StudentGetAllEndpoint: MyBaseEndpoint<StudentSedmica5Request,  StudentGetAllResponse>
 {
     private readonly ApplicationDbContext _applicationDbContext;
 
@@ -16,7 +16,7 @@ public class StudentGetAllEndpoint: MyBaseEndpoint<StudentGetAllRequest,  Studen
     }
 
     [HttpGet("get-all")]
-    public override async Task<StudentGetAllResponse> Obradi([FromQuery] StudentGetAllRequest request, CancellationToken cancellationToken)
+    public override async Task<StudentGetAllResponse> Obradi([FromQuery] StudentSedmica5Request request, CancellationToken cancellationToken)
     {
         var student = await _applicationDbContext.Student
             .OrderByDescending(x => x.ID)

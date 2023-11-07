@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {StudentOldGetAllResponse} from "../sedmica5/student-old-get-all-response";
+import {StudentSedmica5Response} from "../sedmica5/student-sedmica5-response";
 import {MojConfig} from "../moj-config";
 import {StudentiGetAllResponse, StudentiGetAllResponseStudent} from "./studenti-getall-response";
 
