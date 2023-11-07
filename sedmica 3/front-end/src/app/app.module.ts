@@ -8,6 +8,7 @@ import { Sedmica5Component } from './sedmica5/sedmica5.component';
 import {HttpClientModule} from "@angular/common/http";
 import { Sedmica5PretragaJsComponent } from './sedmica5-pretraga-js/sedmica5-pretraga-js.component';
 import { Sedmica5PretragaBackendComponent } from './sedmica5-pretraga-backend/sedmica5-pretraga-backend.component';
+import { Sedmica6EditComponent } from './sedmica6-edit/sedmica6-edit.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { Sedmica5PretragaBackendComponent } from './sedmica5-pretraga-backend/se
     Sedmica4Component,
     Sedmica5Component,
     Sedmica5PretragaJsComponent,
-    Sedmica5PretragaBackendComponent
+    Sedmica5PretragaBackendComponent,
+    Sedmica6EditComponent
   ],
     imports: [
         BrowserModule,

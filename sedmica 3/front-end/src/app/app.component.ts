@@ -10,5 +10,6 @@ export class AppComponent {
   isVidljivoSedmica5 = false;
   isVidljivoSedmica5PretragaJs = false;
   isVidljivoSedmica5PretragaBackend = false;
+  isVidljivoSedmica6Edit = false;
 
 }
