@@ -16,7 +16,7 @@ export class Sedmica5PretragaJsComponent implements OnInit {
   studenti: StudentiGetAllResponseStudent[] = [];
   pretragaNaziv="";
   ngOnInit(): void {
-    let url = MojConfig.adresa_servera +`/student/getall`
+    let url = MojConfig.adresa_servera +`/student/get-all`
     this.httpClient.get<StudentiGetAllResponse>(url).subscribe((x:StudentiGetAllResponse)=>{
       this.studenti = x.studenti;
     })
