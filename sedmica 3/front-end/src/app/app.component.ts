@@ -6,10 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  isVidljivoSedmica4 = false;
-  isVidljivoSedmica5 = false;
-  isVidljivoSedmica5PretragaJs = false;
-  isVidljivoSedmica5PretragaBackend = false;
-  isVidljivoSedmica6Edit = false;
+
 
 }
