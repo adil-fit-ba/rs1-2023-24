@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FIT_Api_Example.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231107213740_init-novi")]
-    partial class initnovi
+    [Migration("20231108074220_A")]
+    partial class A
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -311,7 +311,7 @@ namespace FIT_Api_Example.Migrations
                     b.HasOne("FIT_Api_Example.Data.Models.KorisnickiNalog", "korisnickiNalog")
                         .WithMany()
                         .HasForeignKey("KorisnickiNalogId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("korisnickiNalog");
@@ -322,7 +322,7 @@ namespace FIT_Api_Example.Migrations
                     b.HasOne("FIT_Api_Example.Data.Models.Predmet", "Predmet")
                         .WithMany()
                         .HasForeignKey("PredmetID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Predmet");
@@ -333,13 +333,13 @@ namespace FIT_Api_Example.Migrations
                     b.HasOne("FIT_Api_Example.Data.Models.KorisnickiNalog", "EvidentiraoKorisnik")
                         .WithMany()
                         .HasForeignKey("CreatedByKorisnikID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("FIT_Api_Example.Data.Models.KorisnickiNalog", "IzmijenioKorisnik")
                         .WithMany()
                         .HasForeignKey("IzmijenioKorisnikID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("EvidentiraoKorisnik");
@@ -352,7 +352,7 @@ namespace FIT_Api_Example.Migrations
                     b.HasOne("FIT_Api_Example.Data.Models.Drzava", "drzava")
                         .WithMany()
                         .HasForeignKey("DrzavaID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("drzava");
@@ -363,13 +363,13 @@ namespace FIT_Api_Example.Migrations
                     b.HasOne("FIT_Api_Example.Data.Models.Ispit", "Ispit")
                         .WithMany()
                         .HasForeignKey("IspitID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("FIT_Api_Example.Data.Models.Student", "Student")
                         .WithMany()
                         .HasForeignKey("StudentID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Ispit");
@@ -397,7 +397,7 @@ namespace FIT_Api_Example.Migrations
                     b.HasOne("FIT_Api_Example.Data.Models.Opstina", "OpstinaRodjenja")
                         .WithMany()
                         .HasForeignKey("OpstinaRodjenjaID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("OpstinaRodjenja");

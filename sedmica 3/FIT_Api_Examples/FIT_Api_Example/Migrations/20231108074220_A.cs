@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FIT_Api_Example.Migrations
 {
-    public partial class sedmica6redovni : Migration
+    public partial class A : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -86,8 +86,7 @@ namespace FIT_Api_Example.Migrations
                         name: "FK_Opstina_Drzava_DrzavaID",
                         column: x => x.DrzavaID,
                         principalTable: "Drzava",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "ID");
                 });
 
             migrationBuilder.CreateTable(
@@ -108,8 +107,7 @@ namespace FIT_Api_Example.Migrations
                         name: "FK_AutentifikacijaToken_KorisnickiNalog_KorisnickiNalogId",
                         column: x => x.KorisnickiNalogId,
                         principalTable: "KorisnickiNalog",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "ID");
                 });
 
             migrationBuilder.CreateTable(
@@ -150,14 +148,12 @@ namespace FIT_Api_Example.Migrations
                         name: "FK_Obavijest_KorisnickiNalog_CreatedByKorisnikID",
                         column: x => x.CreatedByKorisnikID,
                         principalTable: "KorisnickiNalog",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "ID");
                     table.ForeignKey(
                         name: "FK_Obavijest_KorisnickiNalog_IzmijenioKorisnikID",
                         column: x => x.IzmijenioKorisnikID,
                         principalTable: "KorisnickiNalog",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "ID");
                 });
 
             migrationBuilder.CreateTable(
@@ -177,8 +173,7 @@ namespace FIT_Api_Example.Migrations
                         name: "FK_Ispit_Predmet_PredmetID",
                         column: x => x.PredmetID,
                         principalTable: "Predmet",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "ID");
                 });
 
             migrationBuilder.CreateTable(
@@ -204,8 +199,7 @@ namespace FIT_Api_Example.Migrations
                         name: "FK_Student_Opstina_OpstinaRodjenjaID",
                         column: x => x.OpstinaRodjenjaID,
                         principalTable: "Opstina",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "ID");
                 });
 
             migrationBuilder.CreateTable(
@@ -226,14 +220,12 @@ namespace FIT_Api_Example.Migrations
                         name: "FK_PrijavaIspita_Ispit_IspitID",
                         column: x => x.IspitID,
                         principalTable: "Ispit",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "ID");
                     table.ForeignKey(
                         name: "FK_PrijavaIspita_Student_StudentID",
                         column: x => x.StudentID,
                         principalTable: "Student",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "ID");
                 });
 
             migrationBuilder.CreateIndex(
