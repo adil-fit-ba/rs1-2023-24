@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FIT_Api_Example.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231107213740_init-novi")]
-    partial class initnovi
+    [Migration("20231114083234_inicijalno")]
+    partial class inicijalno
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

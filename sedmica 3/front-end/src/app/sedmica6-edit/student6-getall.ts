@@ -16,3 +16,10 @@ export interface Student6PretragaResponseStudenti {
   korisnickoIme: string
   slikaKorisnika: string
 }
+
+
+export interface StudentSnimiRequest {
+  id: number
+  ime: string
+  prezime: string
+}
