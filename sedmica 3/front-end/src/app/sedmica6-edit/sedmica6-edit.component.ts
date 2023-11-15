@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {MojConfig} from "../moj-config";
 import {HttpClient} from "@angular/common/http";
 import {Student6PretragaResponse, Student6PretragaResponseStudenti} from "./student6-getall";
-import {StudentSnimiRequest} from "./student-snimi-request";
+import {Sedmica6StudentSnimiEndpoint, StudentSnimiRequest} from "../endpoints/sedmica6-student-snimi.endpoint";
 
 @Component({
   selector: 'app-sedmica6-edit',
@@ -12,7 +12,11 @@ import {StudentSnimiRequest} from "./student-snimi-request";
 export class Sedmica6EditComponent implements OnInit {
   public studenti:Student6PretragaResponseStudenti[]=[];
   public odabraniStudent: StudentSnimiRequest | null = null;
-  constructor(public httpClient:HttpClient) { }
+  constructor(
+    public httpClient:HttpClient,
+    private endpoint: Sedmica6StudentSnimiEndpoint
+
+  ) { }
 
   ngOnInit(): void {
     let url=MojConfig.adresa_servera+`/student/pretraga`;
@@ -31,8 +35,7 @@ export class Sedmica6EditComponent implements OnInit {
 
 
   snimi(): void {
-    let url=MojConfig.adresa_servera+`/student/snimi`;
-    this.httpClient.post(url, this.odabraniStudent).subscribe((x)=>{
+    this.endpoint.obradi(this.odabraniStudent!).subscribe((x)=>{
       alert("uredu")
       this.ngOnInit();
     })

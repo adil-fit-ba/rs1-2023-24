@@ -1,5 +1,6 @@
 ﻿using FIT_Api_Example.Data;
 using FIT_Api_Example.Helper;
+using FIT_Api_Example.Helper.MyAutorize;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,15 +10,23 @@ namespace FIT_Api_Example.Endpoints.StudentEndpoints.Snimi;
 public class StudentSnimiEndpoint : MyBaseEndpoint<StudentSnimiRequest, int>
 {
     private readonly ApplicationDbContext _applicationDbContext;
+    private readonly MyAuthService _authService;
 
-    public StudentSnimiEndpoint(ApplicationDbContext applicationDbContext)
+    public StudentSnimiEndpoint(
+        ApplicationDbContext applicationDbContext,
+        MyAuthService authService
+        )
     {
         _applicationDbContext = applicationDbContext;
+        _authService = authService;
     }
 
     [HttpPost("snimi")]
     public override async Task<int> Obradi([FromBody] StudentSnimiRequest request, CancellationToken cancellationToken)
     {
+        if (!_authService.IsAuthorized())
+            throw new Exception("Not Authorized");
+
         Data.Models.Student? student;
         if (request.ID == 0)
         {
