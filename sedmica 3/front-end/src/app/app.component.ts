@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {MojConfig} from "./moj-config";
+import {MyAuthService} from "./services/MyAuthService";
 
 @Component({
   selector: 'app-root',
@@ -10,8 +11,7 @@ import {MojConfig} from "./moj-config";
 })
 export class AppComponent implements OnInit{
 
-
-  constructor(public router: Router, private httpClient: HttpClient) {
+  constructor(public router: Router, private httpClient: HttpClient, public myAuthService: MyAuthService) {
   }
 
   ngOnInit(): void {
