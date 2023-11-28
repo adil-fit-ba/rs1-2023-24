@@ -1,4 +1,4 @@
-import {MyBaseEndpoint} from "../MyBaseEndpoint";
+import {MyBaseEndpoint} from "../../helpers/my-base-endpoint";
 import {MojConfig} from "../../moj-config";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
@@ -9,10 +9,8 @@ export class StudentSnimiEndpoint implements  MyBaseEndpoint<StudentSnimiRequest
 
   obradi(request: StudentSnimiRequest): Observable<number> {
       let url=MojConfig.adresa_servera+`/student/snimi`;
-
       return this.httpClient.post<number>(url, request);
     }
-
 }
 
 export interface StudentSnimiRequest {

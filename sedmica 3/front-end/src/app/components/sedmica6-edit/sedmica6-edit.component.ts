@@ -1,14 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import {MojConfig} from "../moj-config";
-import {HttpClient} from "@angular/common/http";
-import {StudentSnimiEndpoint, StudentSnimiRequest} from "../endpoints/student-endpoints/student-snimi.endpoint";
-import {
-  Student6PretragaResponse,
-  Student6PretragaResponseStudenti,
-  StudentGetAllEndpoint
-} from "../endpoints/student-endpoints/student-getall.endpoint";
-import {MyAuthService} from "../services/MyAuthService";
+import {Component, OnInit} from '@angular/core';
+import {StudentSnimiEndpoint, StudentSnimiRequest} from "../../endpoints/student-endpoints/student-snimi.endpoint";
+import {StudentGetAllEndpoint} from "../../endpoints/student-endpoints/student-getall.endpoint";
+import {MyAuthService} from "../../helpers/auth/my-auth-service";
 import {Router} from "@angular/router";
+import {
+  StudentPretragaResponse,
+  StudentPretragaResponseStudent
+} from "../../endpoints/student-endpoints/student-pretraga.endpoint";
 
 @Component({
   selector: 'app-sedmica6-edit',
@@ -16,29 +14,25 @@ import {Router} from "@angular/router";
   styleUrls: ['./sedmica6-edit.component.css']
 })
 export class Sedmica6EditComponent implements OnInit {
-  public studenti:Student6PretragaResponseStudenti[]=[];
+  public studenti:StudentPretragaResponseStudent[]=[];
   public odabraniStudent: StudentSnimiRequest | null = null;
   constructor(
     private myAuthService: MyAuthService,
     private snimiEndpoint:StudentSnimiEndpoint,
     private getAllEndpoint:StudentGetAllEndpoint,
     private router: Router
-    ) { }
+    ) {
+
+  }
 
   ngOnInit(): void {
 
-    if (!this.myAuthService.jelLogiran())
-    {
-      this.router.navigate(["/sedmica7-login"])
-      return;
-    }
-
-    this.getAllEndpoint.obradi().subscribe((x:Student6PretragaResponse)=>{
+    this.getAllEndpoint.obradi().subscribe((x:StudentPretragaResponse)=>{
       this.studenti=x.studenti;
     })
   }
 
-  odaberi(item: Student6PretragaResponseStudenti) {
+  odaberi(item: StudentPretragaResponseStudent) {
     this.odabraniStudent = {
       ime: item.ime,
       prezime: item.prezime,

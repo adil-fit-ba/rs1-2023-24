@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthLoginRequest} from "./authLoginRequest";
-import {MojConfig} from "../moj-config";
 import {HttpClient} from "@angular/common/http";
-import {AuthLoginResponse} from "./authLoginResponse";
 import {Router} from "@angular/router";
-import {MyAuthService} from "../services/MyAuthService";
+import {MyAuthService} from "../../helpers/auth/my-auth-service";
+import {AuthLoginEndpoint, AuthLoginRequest} from "../../endpoints/auth-endpoints/auth-login.endpoint";
 
 @Component({
   selector: 'app-sedmica7-login',
@@ -17,16 +15,20 @@ export class Sedmica7LoginComponent implements OnInit {
     lozinka:"",
     korisnickoIme:""
   };
-  constructor(public httpClient:HttpClient, private myAuthService: MyAuthService, private router: Router) {
-
+  constructor(
+    public httpClient:HttpClient,
+    private myAuthService: MyAuthService,
+    private router: Router,
+    private authLoginEndpoint:AuthLoginEndpoint
+  ) {
   }
 
   ngOnInit(): void {
   }
 
   signIn() {
-    let url=MojConfig.adresa_servera+`/auth/login`;
-    this.httpClient.post<AuthLoginResponse>(url, this.loginRequest).subscribe((x)=>{
+
+    this.authLoginEndpoint.obradi(this.loginRequest).subscribe((x)=>{
       if (!x.isLogiran){
         alert("pogresan username/pass")
       }
@@ -34,7 +36,6 @@ export class Sedmica7LoginComponent implements OnInit {
         let token = x.autentifikacijaToken;
         this.myAuthService.setLogiraniKorisnik(token);
         this.router.navigate(["/sedmica5-js"])
-
       }
     })
   }

@@ -4,20 +4,20 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
 @Injectable({providedIn: 'root'})
-export class StudentGetAllEndpoint implements  MyBaseEndpoint<void, StudentiGetAllResponse>{
+export class StudentPretragaEndpoint implements  MyBaseEndpoint<string, StudentPretragaResponse>{
   constructor(public httpClient:HttpClient) { }
 
-  obradi(request: void): Observable<StudentiGetAllResponse> {
-    let url=MojConfig.adresa_servera+`/student/get-all`;
-      return this.httpClient.get<StudentiGetAllResponse>(url);
+  obradi(naziv: string): Observable<StudentPretragaResponse> {
+    let url=MojConfig.adresa_servera+`/student/pretraga?Pretraga=${naziv}`;
+      return this.httpClient.get<StudentPretragaResponse>(url);
     }
 }
 
-export interface StudentiGetAllResponse{
-  studenti: StudentiGetAllResponseStudent[]
+export interface StudentPretragaResponse {
+  studenti: StudentPretragaResponseStudent[];
 }
 
-export interface StudentiGetAllResponseStudent {
+export interface StudentPretragaResponseStudent {
   slikaKorisnika: string;
   id: number
   ime: string
@@ -27,3 +27,4 @@ export interface StudentiGetAllResponseStudent {
   datumRodjenja: string
   korisnickoIme: string
 }
+

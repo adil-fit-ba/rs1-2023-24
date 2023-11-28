@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {MojConfig} from "../moj-config";
-import {StudentSedmica5Response} from "./student-sedmica5-response";
-import {MyAuthService} from "../services/MyAuthService";
+import {MojConfig} from "../../moj-config";
+import {MyAuthService} from "../../helpers/auth/my-auth-service";
 import {Router} from "@angular/router";
+import {StudentSedmica5Response} from "../../endpoints/student-endpoints/student-sedmica5.endpoint";
 
 @Component({
   selector: 'app-sedmica5',
@@ -22,12 +22,6 @@ export class Sedmica5Component implements OnInit {
   studenti: StudentSedmica5Response[] = [];
 
   getStudenti() {
-    if (!this.myAuthService.jelLogiran())
-    {
-      this.router.navigate(["/sedmica7-login"])
-      return;
-    }
-
     let url = MojConfig.adresa_servera +`/student/sedmica5`
     fetch(url)
       .then(response=>{

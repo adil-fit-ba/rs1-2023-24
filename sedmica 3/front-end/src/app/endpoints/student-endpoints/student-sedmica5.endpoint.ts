@@ -1,3 +1,18 @@
+import {MyBaseEndpoint} from "../../helpers/my-base-endpoint";
+import {MojConfig} from "../../moj-config";
+import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs";
+import {Injectable} from "@angular/core";
+@Injectable({providedIn: 'root'})
+export class StudentSedmica5Endpoint implements  MyBaseEndpoint<void, StudentSedmica5Response>{
+  constructor(public httpClient:HttpClient) { }
+
+  obradi(request: void): Observable<StudentSedmica5Response> {
+    let url=MojConfig.adresa_servera+`/student/sedmica5`;
+      return this.httpClient.get<StudentSedmica5Response>(url);
+    }
+}
+
 export interface StudentSedmica5Response {
   ime: string
   prezime: string
