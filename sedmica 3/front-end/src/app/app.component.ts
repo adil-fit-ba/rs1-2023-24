@@ -27,11 +27,7 @@ export class AppComponent implements OnInit{
     window.localStorage.setItem("my-auth-token","");
 
     let url=MojConfig.adresa_servera+`/auth/logout`
-    this.httpClient.post(url, {}, {
-      headers:{
-        "my-auth-token": token
-      }
-    }).subscribe(x=>{
+    this.httpClient.post(url, {}, MojConfig.get_http_opcije()).subscribe(x=>{
         console.log("logout uspjesan")
     })
 

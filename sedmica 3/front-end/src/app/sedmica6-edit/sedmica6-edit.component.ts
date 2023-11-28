@@ -7,6 +7,8 @@ import {
   Student6PretragaResponseStudenti,
   StudentGetAllEndpoint
 } from "../endpoints/student-endpoints/student-getall.endpoint";
+import {MyAuthService} from "../services/MyAuthService";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-sedmica6-edit',
@@ -17,12 +19,19 @@ export class Sedmica6EditComponent implements OnInit {
   public studenti:Student6PretragaResponseStudenti[]=[];
   public odabraniStudent: StudentSnimiRequest | null = null;
   constructor(
+    private myAuthService: MyAuthService,
     private snimiEndpoint:StudentSnimiEndpoint,
-    private getAllEndpoint:StudentGetAllEndpoint
+    private getAllEndpoint:StudentGetAllEndpoint,
+    private router: Router
     ) { }
 
   ngOnInit(): void {
-    let url=MojConfig.adresa_servera+`/student/pretraga`;
+
+    if (!this.myAuthService.jelLogiran())
+    {
+      this.router.navigate(["/sedmica5-js"])
+    }
+
     this.getAllEndpoint.obradi().subscribe((x:Student6PretragaResponse)=>{
       this.studenti=x.studenti;
     })
