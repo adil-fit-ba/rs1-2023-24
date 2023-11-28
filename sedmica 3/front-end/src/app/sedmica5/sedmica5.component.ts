@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {MojConfig} from "../moj-config";
 import {StudentSedmica5Response} from "./student-sedmica5-response";
+import {MyAuthService} from "../services/MyAuthService";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-sedmica5',
@@ -9,7 +11,10 @@ import {StudentSedmica5Response} from "./student-sedmica5-response";
 })
 export class Sedmica5Component implements OnInit {
 
-  constructor() { }
+  constructor(
+    private myAuthService: MyAuthService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
   }
@@ -17,6 +22,12 @@ export class Sedmica5Component implements OnInit {
   studenti: StudentSedmica5Response[] = [];
 
   getStudenti() {
+    if (!this.myAuthService.jelLogiran())
+    {
+      this.router.navigate(["/sedmica7-login"])
+      return;
+    }
+
     let url = MojConfig.adresa_servera +`/student/sedmica5`
     fetch(url)
       .then(response=>{

@@ -3,6 +3,8 @@ import {HttpClient} from "@angular/common/http";
 import {StudentiGetAllResponse, StudentiGetAllResponseStudent} from "../sedmica5-pretraga-js/studenti-getall-response";
 import {MojConfig} from "../moj-config";
 import {StudentPretragaResponse, StudentPretragaResponseStudent} from "./studenti-pretraga-response";
+import {MyAuthService} from "../services/MyAuthService";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-sedmica5-pretraga-backend',
@@ -11,13 +13,16 @@ import {StudentPretragaResponse, StudentPretragaResponseStudent} from "./student
 })
 export class Sedmica5PretragaBackendComponent implements OnInit {
 
-  constructor(public httpClient: HttpClient ) {
+  constructor(
+    public httpClient: HttpClient,
+  ) {
   }
 
   studenti: StudentPretragaResponseStudent[] = [];
   ngOnInit(): void {
+
     let url = MojConfig.adresa_servera +`/student/pretraga`
-    this.httpClient.get<StudentPretragaResponse>(url, MojConfig.get_http_opcije()).subscribe((x:StudentPretragaResponse)=>{
+    this.httpClient.get<StudentPretragaResponse>(url).subscribe((x:StudentPretragaResponse)=>{
       this.studenti = x.studenti;
     })
   }
@@ -26,7 +31,7 @@ export class Sedmica5PretragaBackendComponent implements OnInit {
     // @ts-ignore
     let naziv = $event.target.value;
     let url = MojConfig.adresa_servera +`/student/pretraga?Pretraga=${naziv}`
-    this.httpClient.get<StudentPretragaResponse>(url, MojConfig.get_http_opcije()).subscribe((x:StudentPretragaResponse)=>{
+    this.httpClient.get<StudentPretragaResponse>(url).subscribe((x:StudentPretragaResponse)=>{
       this.studenti = x.studenti;
     })
   }

@@ -29,7 +29,8 @@ export class Sedmica6EditComponent implements OnInit {
 
     if (!this.myAuthService.jelLogiran())
     {
-      this.router.navigate(["/sedmica5-js"])
+      this.router.navigate(["/sedmica7-login"])
+      return;
     }
 
     this.getAllEndpoint.obradi().subscribe((x:Student6PretragaResponse)=>{

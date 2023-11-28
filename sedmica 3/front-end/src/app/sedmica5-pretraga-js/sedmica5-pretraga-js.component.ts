@@ -3,6 +3,8 @@ import {HttpClient} from "@angular/common/http";
 import {StudentSedmica5Response} from "../sedmica5/student-sedmica5-response";
 import {MojConfig} from "../moj-config";
 import {StudentiGetAllResponse, StudentiGetAllResponseStudent} from "./studenti-getall-response";
+import {MyAuthService} from "../services/MyAuthService";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-sedmica5-pretraga-js',
@@ -11,11 +13,21 @@ import {StudentiGetAllResponse, StudentiGetAllResponseStudent} from "./studenti-
 })
 export class Sedmica5PretragaJsComponent implements OnInit {
 
-  constructor(public httpClient: HttpClient ) {
+  constructor(
+    private myAuthService: MyAuthService,
+    public httpClient: HttpClient,
+    private router: Router
+  ) {
   }
   studenti: StudentiGetAllResponseStudent[] = [];
   pretragaNaziv="";
   ngOnInit(): void {
+    if (!this.myAuthService.jelLogiran())
+    {
+      this.router.navigate(["/sedmica7-login"])
+      return;
+    }
+
     let url = MojConfig.adresa_servera +`/student/get-all`
     this.httpClient.get<StudentiGetAllResponse>(url, MojConfig.get_http_opcije()).subscribe((x:StudentiGetAllResponse)=>{
       this.studenti = x.studenti;
