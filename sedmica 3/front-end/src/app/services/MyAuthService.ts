@@ -1,6 +1,6 @@
 import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
-import {AutentifikacijaToken} from "../sedmica7-login/authLoginResponse";
+import {AutentifikacijaToken} from "../../helper/auth/autentifikacijaToken";
 
 @Injectable({providedIn: 'root'})
 export class MyAuthService{
@@ -34,11 +34,22 @@ export class MyAuthService{
     return this.getAuthorizationToken()?.korisnickiNalog.isDekan ?? false
   }
 
+  isStudent():boolean {
+    return this.getAuthorizationToken()?.korisnickiNalog.isStudent ?? false
+  }
+
   isProdekan():boolean{
     return this.getAuthorizationToken()?.korisnickiNalog.isProdekan ?? false
   }
-  setLogiraniKorisnik(x: AutentifikacijaToken) {
+  setLogiraniKorisnik(x: AutentifikacijaToken | null) {
 
-    window.localStorage.setItem("my-auth-token", JSON.stringify(x.vrijednost));
+    if (x == null){
+      window.localStorage.setItem("my-auth-token", '');
+    }
+    else {
+      window.localStorage.setItem("my-auth-token", JSON.stringify(x));
+    }
   }
+
+
 }

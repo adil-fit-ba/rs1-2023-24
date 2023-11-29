@@ -20,7 +20,7 @@ public class StudentGetByIdEndpoint: MyBaseEndpoint<int, StudentGetByIdResponse>
     [HttpGet("{id}")]
     public override async Task<StudentGetByIdResponse> Obradi(int id, CancellationToken cancellationToken)
     {
-        if (!_authService.JelLogiran())
+        if (!_authService.IsLogiran())
         {
             throw new Exception("nije logiran");
         }

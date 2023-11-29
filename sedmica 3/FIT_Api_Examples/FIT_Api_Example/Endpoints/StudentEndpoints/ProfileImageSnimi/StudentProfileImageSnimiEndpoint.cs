@@ -20,7 +20,7 @@ public class StudentProfileImageSnimiEndpoint : MyBaseEndpoint<StudentProfileIma
     [HttpPost("profile-image-snimi")]
     public override async Task<int> Obradi([FromBody] StudentProfileImageSnimiRequest request, CancellationToken cancellationToken)
     {
-        if (!_authService.JelLogiran())
+        if (!_authService.IsLogiran())
         {
             throw new Exception("nije logiran");
         }

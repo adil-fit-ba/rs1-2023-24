@@ -20,7 +20,7 @@ public class StudentPretragaEndpoint: MyBaseEndpoint<StudentPretragaRequest,  St
     [HttpGet("pretraga")]
     public override async Task<StudentPretragaResponse> Obradi([FromQuery]StudentPretragaRequest request, CancellationToken cancellationToken)
     {
-        if (!_authService.JelLogiran())
+        if (!_authService.IsLogiran())
         {
             throw new Exception("nije logiran");
         }

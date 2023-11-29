@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthLoginRequest} from "./authLoginRequest";
-import {MojConfig} from "../moj-config";
+import {MojConfig} from "../../moj-config";
 import {HttpClient} from "@angular/common/http";
 import {AuthLoginResponse} from "./authLoginResponse";
 import {Router} from "@angular/router";
-import {MyAuthService} from "../services/MyAuthService";
+import {MyAuthService} from "../../services/MyAuthService";
 
 @Component({
   selector: 'app-sedmica7-login',
@@ -34,7 +34,13 @@ export class Sedmica7LoginComponent implements OnInit {
       }
       else{
         this.myAuthService.setLogiraniKorisnik(x.autentifikacijaToken);
-        this.router.navigate(["/sedmica5-js"])
+        if (this.myAuthService.isStudent()){
+          this.router.navigate(["/home-student"])
+        }
+        else{
+          this.router.navigate(["/home-nastavnik"])
+        }
+
 
       }
     })

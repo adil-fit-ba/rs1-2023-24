@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {StudentiGetAllResponse, StudentiGetAllResponseStudent} from "../sedmica5-pretraga-js/studenti-getall-response";
-import {MojConfig} from "../moj-config";
+import {MojConfig} from "../../moj-config";
 import {StudentPretragaResponse, StudentPretragaResponseStudent} from "./studenti-pretraga-response";
 
 @Component({

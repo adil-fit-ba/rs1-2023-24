@@ -21,7 +21,7 @@ public class StudentSedmica5Endpoint : MyBaseEndpoint<StudentSedmica5Request, Li
     [HttpGet("sedmica5")]
     public override async Task<List<Student>> Obradi([FromQuery] StudentSedmica5Request request, CancellationToken cancellationToken)
     {
-        if (!_authService.JelLogiran())
+        if (!_authService.IsLogiran())
         {
             throw new Exception("nije logiran");
         }

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {MojConfig} from "../moj-config";
+import {MojConfig} from "../../moj-config";
 import {HttpClient} from "@angular/common/http";
-import {StudentSnimiEndpoint, StudentSnimiRequest} from "../endpoints/student-endpoints/student-snimi.endpoint";
+import {StudentSnimiEndpoint, StudentSnimiRequest} from "../../endpoints/student-endpoints/student-snimi.endpoint";
 import {
   Student6PretragaResponse,
   Student6PretragaResponseStudenti,
   StudentGetAllEndpoint
-} from "../endpoints/student-endpoints/student-getall.endpoint";
+} from "../../endpoints/student-endpoints/student-getall.endpoint";
 
 @Component({
   selector: 'app-sedmica6-edit',
