@@ -5,12 +5,13 @@ import { AppComponent } from './app.component';
 import {FormsModule} from "@angular/forms";
 import { Sedmica4Component } from './sedmica4/sedmica4.component';
 import { Sedmica5Component } from './sedmica5/sedmica5.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { Sedmica5PretragaJsComponent } from './sedmica5-pretraga-js/sedmica5-pretraga-js.component';
 import { Sedmica5PretragaBackendComponent } from './sedmica5-pretraga-backend/sedmica5-pretraga-backend.component';
 import { Sedmica6EditComponent } from './sedmica6-edit/sedmica6-edit.component';
 import { RouterModule } from '@angular/router';
 import { Sedmica7LoginComponent } from './sedmica7-login/sedmica7-login.component';
+import {MyAuthInterceptor} from "../helper/auth/my-auth-interceptor.service";
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +35,9 @@ import { Sedmica7LoginComponent } from './sedmica7-login/sedmica7-login.componen
         {path:'sedmica7-login', component: Sedmica7LoginComponent},
       ])
     ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: MyAuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

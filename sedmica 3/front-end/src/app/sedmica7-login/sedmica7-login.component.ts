@@ -4,6 +4,7 @@ import {MojConfig} from "../moj-config";
 import {HttpClient} from "@angular/common/http";
 import {AuthLoginResponse} from "./authLoginResponse";
 import {Router} from "@angular/router";
+import {MyAuthService} from "../services/MyAuthService";
 
 @Component({
   selector: 'app-sedmica7-login',
@@ -16,7 +17,11 @@ export class Sedmica7LoginComponent implements OnInit {
     lozinka:"",
     korisnickoIme:""
   };
-  constructor(public httpClient:HttpClient, private router: Router) { }
+  constructor(
+    public httpClient:HttpClient,
+    private router: Router,
+    private myAuthService:MyAuthService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -28,8 +33,7 @@ export class Sedmica7LoginComponent implements OnInit {
         alert("pogresan username/pass")
       }
       else{
-        let token = x.autentifikacijaToken.vrijednost;
-        window.localStorage.setItem("my-auth-token",token)
+        this.myAuthService.setLogiraniKorisnik(x.autentifikacijaToken);
         this.router.navigate(["/sedmica5-js"])
 
       }
