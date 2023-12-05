@@ -36,9 +36,9 @@ namespace FIT_Api_Example.Services
             if (!korisnickiNalog.IsAktiviranNalog)
             {
                 var Request = _httpContextAccessor.HttpContext!.Request;
-                var location = $"{Request.Scheme}://{Request.Host}";
+                var location = "http://localhost:4200";
 
-                string url = location +"/nastavnik/Aktivacija/" + korisnickiNalog.AktivacijaNalogaGuid;//angularapp/putajadokomponente
+                string url = location +"/auth/aktivacija-angular?nesto=" + korisnickiNalog.AktivacijaNalogaGuid;//angularapp/putajadokomponente
                 string poruka = $"Postovani/a {korisnickiNalog.KorisnickoIme}, <br> Link za aktivaciju vaseg naloga <a href='{url}'>{url}</a>... {DateTime.Now}";
                 _emailSender.Send(posalji_na_moj_email, "Aktivacija korisnika", poruka, true);
 

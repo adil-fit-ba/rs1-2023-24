@@ -2,5 +2,6 @@
 {
     public class AuthAktivacijaRequest
     {
+        public string Nesto { get; set; }
     }
 }
