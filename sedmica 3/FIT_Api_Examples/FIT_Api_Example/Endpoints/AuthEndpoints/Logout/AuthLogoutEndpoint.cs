@@ -2,7 +2,7 @@
 using FIT_Api_Example.Data.Models;
 using FIT_Api_Example.Endpoints.AuthEndpoints.Login;
 using FIT_Api_Example.Helper;
-using FIT_Api_Example.Helper.Services;
+using FIT_Api_Example.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,7 +23,7 @@ public class AuthLogoutEndpoint : MyBaseEndpoint<NoRequest, NoResponse>
     [HttpPost("logout")]
     public override async Task<NoResponse> Obradi([FromBody] NoRequest request, CancellationToken cancellationToken)
     {
-        AutentifikacijaToken? autentifikacijaToken = _authService.GetAuthInfo().autentifikacijaToken;
+        AutentifikacijaToken? autentifikacijaToken = _authService.GetAuthInfo().AutentifikacijaToken;
 
         if (autentifikacijaToken == null)
             return new NoResponse();

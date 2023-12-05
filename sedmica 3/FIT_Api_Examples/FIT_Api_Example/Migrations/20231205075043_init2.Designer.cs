@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FIT_Api_Example.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231108074220_A")]
-    partial class A
+    [Migration("20231205075043_init2")]
+    partial class init2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,26 +43,33 @@ namespace FIT_Api_Example.Migrations
 
             modelBuilder.Entity("FIT_Api_Example.Data.Models.AutentifikacijaToken", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<string>("Code2F")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IpAdresa")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Is2FOtkljucan")
+                        .HasColumnType("bit");
 
                     b.Property<int>("KorisnickiNalogId")
                         .HasColumnType("int");
 
-                    b.Property<string>("ipAdresa")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("vrijednost")
+                    b.Property<string>("Vrijednost")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("vrijemeEvidentiranja")
+                    b.Property<DateTime>("VrijemeEvidentiranja")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("id");
+                    b.HasKey("ID");
 
                     b.HasIndex("KorisnickiNalogId");
 
@@ -122,6 +129,31 @@ namespace FIT_Api_Example.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
+                    b.Property<string>("AktivacijaNalogaGuid")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Is2FRequired")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsAktiviranNalog")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDekan")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsProdekan")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsStudentskaSluzba")
+                        .HasColumnType("bit");
+
                     b.Property<string>("KorisnickoIme")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -133,18 +165,6 @@ namespace FIT_Api_Example.Migrations
                     b.Property<string>("SlikaKorisnika")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("isAdmin")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("isDekan")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("isProdekan")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("isStudentskaSluzba")
-                        .HasColumnType("bit");
 
                     b.HasKey("ID");
 
@@ -308,13 +328,13 @@ namespace FIT_Api_Example.Migrations
 
             modelBuilder.Entity("FIT_Api_Example.Data.Models.AutentifikacijaToken", b =>
                 {
-                    b.HasOne("FIT_Api_Example.Data.Models.KorisnickiNalog", "korisnickiNalog")
+                    b.HasOne("FIT_Api_Example.Data.Models.KorisnickiNalog", "KorisnickiNalog")
                         .WithMany()
                         .HasForeignKey("KorisnickiNalogId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("korisnickiNalog");
+                    b.Navigation("KorisnickiNalog");
                 });
 
             modelBuilder.Entity("FIT_Api_Example.Data.Models.Ispit", b =>

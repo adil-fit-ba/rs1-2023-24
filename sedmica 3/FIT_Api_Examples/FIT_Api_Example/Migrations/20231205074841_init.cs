@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FIT_Api_Example.Migrations
 {
-    public partial class A : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -45,10 +45,14 @@ namespace FIT_Api_Example.Migrations
                     KorisnickoIme = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Lozinka = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SlikaKorisnika = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    isAdmin = table.Column<bool>(type: "bit", nullable: false),
-                    isProdekan = table.Column<bool>(type: "bit", nullable: false),
-                    isDekan = table.Column<bool>(type: "bit", nullable: false),
-                    isStudentskaSluzba = table.Column<bool>(type: "bit", nullable: false)
+                    IsAdmin = table.Column<bool>(type: "bit", nullable: false),
+                    IsProdekan = table.Column<bool>(type: "bit", nullable: false),
+                    IsDekan = table.Column<bool>(type: "bit", nullable: false),
+                    IsStudentskaSluzba = table.Column<bool>(type: "bit", nullable: false),
+                    IsAktiviranNalog = table.Column<bool>(type: "bit", nullable: false),
+                    AktivacijaNalogaGuid = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Is2FRequired = table.Column<bool>(type: "bit", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -93,16 +97,18 @@ namespace FIT_Api_Example.Migrations
                 name: "AutentifikacijaToken",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
+                    ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    vrijednost = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Vrijednost = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     KorisnickiNalogId = table.Column<int>(type: "int", nullable: false),
-                    vrijemeEvidentiranja = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ipAdresa = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    VrijemeEvidentiranja = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IpAdresa = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Code2F = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Is2FOtkljucan = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AutentifikacijaToken", x => x.id);
+                    table.PrimaryKey("PK_AutentifikacijaToken", x => x.ID);
                     table.ForeignKey(
                         name: "FK_AutentifikacijaToken_KorisnickiNalog_KorisnickiNalogId",
                         column: x => x.KorisnickiNalogId,

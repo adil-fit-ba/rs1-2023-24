@@ -3,7 +3,7 @@ using FIT_Api_Example.Data.Models;
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 
-namespace FIT_Api_Example.Helper.Services
+namespace FIT_Api_Example.Services
 {
     public class MyAuthService
     {
@@ -17,7 +17,7 @@ namespace FIT_Api_Example.Helper.Services
         }
         public bool JelLogiran()
         {
-            return GetAuthInfo().isLogiran;
+            return GetAuthInfo().IsLogiran;
         }
 
         public MyAuthInfo GetAuthInfo()
@@ -25,8 +25,8 @@ namespace FIT_Api_Example.Helper.Services
             string? authToken = _httpContextAccessor.HttpContext!.Request.Headers["my-auth-token"];
 
             AutentifikacijaToken? autentifikacijaToken = _applicationDbContext.AutentifikacijaToken
-                .Include(x=>x.korisnickiNalog)
-                .SingleOrDefault(x => x.vrijednost == authToken);
+                .Include(x => x.KorisnickiNalog)
+                .SingleOrDefault(x => x.Vrijednost == authToken);
 
             return new MyAuthInfo(autentifikacijaToken);
         }
@@ -36,14 +36,14 @@ namespace FIT_Api_Example.Helper.Services
     {
         public MyAuthInfo(AutentifikacijaToken? autentifikacijaToken)
         {
-            this.autentifikacijaToken = autentifikacijaToken;
+            this.AutentifikacijaToken = autentifikacijaToken;
         }
 
         [JsonIgnore]
-        public KorisnickiNalog? korisnickiNalog => autentifikacijaToken?.korisnickiNalog;
-        public AutentifikacijaToken? autentifikacijaToken { get; set; }
+        public KorisnickiNalog? KorisnickiNalog => AutentifikacijaToken?.KorisnickiNalog;
+        public AutentifikacijaToken? AutentifikacijaToken { get; set; }
 
-        public bool isLogiran => korisnickiNalog != null;
+        public bool IsLogiran => KorisnickiNalog != null;
 
     }
 }

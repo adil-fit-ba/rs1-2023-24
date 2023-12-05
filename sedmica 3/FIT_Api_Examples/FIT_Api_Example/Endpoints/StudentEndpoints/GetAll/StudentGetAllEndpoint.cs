@@ -1,7 +1,7 @@
 ﻿using FIT_Api_Example.Data;
 using FIT_Api_Example.Data.Models;
 using FIT_Api_Example.Helper;
-using FIT_Api_Example.Helper.Services;
+using FIT_Api_Example.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,8 +28,8 @@ public class StudentGetAllEndpoint: MyBaseEndpoint<StudentSedmica5Request,  Stud
             throw new Exception("nije logiran");
         }
 
-        KorisnickiNalog korisnickiNalog = _authService.GetAuthInfo().korisnickiNalog!;
-        if (!(korisnickiNalog.isStudentskaSluzba || korisnickiNalog.isAdmin || korisnickiNalog.isProdekan))
+        KorisnickiNalog korisnickiNalog = _authService.GetAuthInfo().KorisnickiNalog!;
+        if (!(korisnickiNalog.IsStudentskaSluzba || korisnickiNalog.IsAdmin || korisnickiNalog.IsProdekan))
         {
             throw new Exception("nema pravo pristupa");
         }

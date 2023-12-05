@@ -1,7 +1,7 @@
 ﻿using FIT_Api_Example.Data;
 using FIT_Api_Example.Data.Models;
 using FIT_Api_Example.Helper;
-using FIT_Api_Example.Helper.Services;
+using FIT_Api_Example.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -37,10 +37,11 @@ public class AuthLoginEndpoint : MyBaseEndpoint<AuthLoginRequest, MyAuthInfo>
         //3- dodati novi zapis u tabelu AutentifikacijaToken za logiraniKorisnikId i randomString
         var noviToken = new AutentifikacijaToken()
         {
-            ipAdresa = Request.HttpContext.Connection.RemoteIpAddress?.ToString(),
-            vrijednost = randomString,
-            korisnickiNalog = logiraniKorisnik,
-            vrijemeEvidentiranja = DateTime.Now
+            IpAdresa = Request.HttpContext.Connection.RemoteIpAddress?.ToString(),
+            Vrijednost = randomString,
+            KorisnickiNalog = logiraniKorisnik,
+            VrijemeEvidentiranja = DateTime.Now,
+            Code2F = Guid.NewGuid().ToString()
         };
 
         _applicationDbContext.Add(noviToken);

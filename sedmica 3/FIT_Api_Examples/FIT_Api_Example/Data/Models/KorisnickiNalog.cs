@@ -19,12 +19,15 @@ public class KorisnickiNalog
 
     [JsonIgnore]
     public Nastavnik? Nastavnik => this as Nastavnik;
-    public bool isNastavnik => Nastavnik != null;
-    public bool isStudent => Student != null;
-    public bool isAdmin { get; set; }
-    public bool isProdekan { get; set; }
-    public bool isDekan { get; set; }
-    public bool isStudentskaSluzba { get; set; }
+    public bool IsNastavnik => Nastavnik != null;
+    public bool IsStudent => Student != null;
+    public bool IsAdmin { get; set; }
+    public bool IsProdekan { get; set; }
+    public bool IsDekan { get; set; }
+    public bool IsStudentskaSluzba { get; set; }
 
-
+    public bool IsAktiviranNalog { get; set; }
+    public string AktivacijaNalogaGuid { get; set; }
+    public bool Is2FRequired { get; set; }
+    public string? Email { get; set; }
 }

@@ -1,11 +1,11 @@
 using FIT_Api_Example.Data;
-using FIT_Api_Example.Helper.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 
 using Microsoft.Extensions.Configuration;
+using FIT_Api_Example.Services;
 
 var config = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json", false)
@@ -21,6 +21,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<MyAuthService>();
+builder.Services.AddTransient<MyEmailLog>();
+builder.Services.AddTransient<MyEmailSender>();
+builder.Services.AddTransient<MyActionLog>();
 builder.Services.AddHttpContextAccessor();
 
 

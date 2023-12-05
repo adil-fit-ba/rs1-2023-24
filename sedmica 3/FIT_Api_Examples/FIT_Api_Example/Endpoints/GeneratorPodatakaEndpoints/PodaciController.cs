@@ -75,11 +75,11 @@ public class PodaciController : ControllerBase
         predmeti.Add(new Predmet { Ects = 5, Naziv = "Razvoj softvera I", Sifra = "RS-RS1" });
         predmeti.Add(new Predmet { Ects = 5, Naziv = "Razvoj softvera II", Sifra = "RS-RS2" });
 
-        nastavnici.Add(new Nastavnik { Ime = "Denis", Prezime = "Music", KorisnickoIme = "denis", Lozinka = "test", SlikaKorisnika = Config.SlikeURL + "empty.png", });
-        nastavnici.Add(new Nastavnik { Ime = "Emina", Prezime = "Junuz", KorisnickoIme = "emina", Lozinka = "test", SlikaKorisnika = Config.SlikeURL + "empty.png", });
-        nastavnici.Add(new Nastavnik { Ime = "Iris", Prezime = "Memic-Fisic", KorisnickoIme = "iris", Lozinka = "test", SlikaKorisnika = Config.SlikeURL + "empty.png", isProdekan = true });
-        nastavnici.Add(new Nastavnik { Ime = "Nina", Prezime = "Bijedic", KorisnickoIme = "nina", Lozinka = "test", SlikaKorisnika = Config.SlikeURL + "empty.png", isDekan = true });
-        nastavnici.Add(new Nastavnik { Ime = "Adil", Prezime = "Joldic", KorisnickoIme = "adil", Lozinka = "test", SlikaKorisnika = Config.SlikeURL + "empty.png", isAdmin = true });
+        nastavnici.Add(new Nastavnik { IsAktiviranNalog  = true, Is2FRequired = false, AktivacijaNalogaGuid = Guid.NewGuid().ToString(), Ime = "Denis", Prezime = "Music", KorisnickoIme = "denis", Lozinka = "test", SlikaKorisnika = Config.SlikeURL + "empty.png", });
+        nastavnici.Add(new Nastavnik { IsAktiviranNalog = false, Is2FRequired = true, AktivacijaNalogaGuid = Guid.NewGuid().ToString(), Ime = "Emina", Prezime = "Junuz", KorisnickoIme = "emina", Lozinka = "test", SlikaKorisnika = Config.SlikeURL + "empty.png", });
+        nastavnici.Add(new Nastavnik { IsAktiviranNalog = false, Is2FRequired = true, AktivacijaNalogaGuid = Guid.NewGuid().ToString(), Ime = "Iris", Prezime = "Memic-Fisic", KorisnickoIme = "iris", Lozinka = "test", SlikaKorisnika = Config.SlikeURL + "empty.png", IsProdekan = true });
+        nastavnici.Add(new Nastavnik { IsAktiviranNalog = false, Is2FRequired = true, AktivacijaNalogaGuid = Guid.NewGuid().ToString(), Ime = "Nina", Prezime = "Bijedic", KorisnickoIme = "nina", Lozinka = "test", SlikaKorisnika = Config.SlikeURL + "empty.png", IsDekan = true });
+        nastavnici.Add(new Nastavnik { IsAktiviranNalog = false, Is2FRequired = true, AktivacijaNalogaGuid = Guid.NewGuid().ToString(), Ime = "Adil", Prezime = "Joldic", KorisnickoIme = "adil", Lozinka = "test", SlikaKorisnika = Config.SlikeURL + "empty.png", IsAdmin = true });
 
 
         Random rnd = new Random();
@@ -93,6 +93,9 @@ public class PodaciController : ControllerBase
                 Prezime = TokenGenerator.GenerisiIme(5),
                 KorisnickoIme = TokenGenerator.GenerisiIme(5),
                 Lozinka = "test",
+                AktivacijaNalogaGuid = Guid.NewGuid().ToString(),
+                Is2FRequired = false,
+                IsAktiviranNalog = true,
                 OpstinaRodjenja = opstine.GetRandomElements(1)[0],
                 SlikaKorisnika = Config.SlikeURL + "empty.png"
             });
