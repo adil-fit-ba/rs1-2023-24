@@ -1,6 +1,7 @@
 ﻿using FIT_Api_Example.Data;
 using FIT_Api_Example.Data.Models;
 using FIT_Api_Example.Helper;
+using FIT_Api_Example.Helper.Auth;
 using FIT_Api_Example.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace FIT_Api_Example.Endpoints.StudentEndpoints.GetAll;
 
 [Route("student")]
+[Autorizacija(studentskaSluzba: false, prodekan: true, dekan: true, studenti: false, nastavnici: true)]
 public class StudentGetAllEndpoint: MyBaseEndpoint<StudentSedmica5Request,  StudentGetAllResponse>
 {
     private readonly ApplicationDbContext _applicationDbContext;
@@ -23,17 +25,6 @@ public class StudentGetAllEndpoint: MyBaseEndpoint<StudentSedmica5Request,  Stud
   
     public override async Task<StudentGetAllResponse> Obradi([FromQuery] StudentSedmica5Request request, CancellationToken cancellationToken)
     {
-        if (!_authService.JelLogiran())
-        {
-            throw new Exception("nije logiran");
-        }
-
-        KorisnickiNalog korisnickiNalog = _authService.GetAuthInfo().KorisnickiNalog!;
-        if (!(korisnickiNalog.IsStudentskaSluzba || korisnickiNalog.IsAdmin || korisnickiNalog.IsProdekan))
-        {
-            throw new Exception("nema pravo pristupa");
-        }
-
         var student = await _applicationDbContext.Student
             .OrderByDescending(x => x.ID)
             .Select(x=>new StudentGetAllResponseStudent()

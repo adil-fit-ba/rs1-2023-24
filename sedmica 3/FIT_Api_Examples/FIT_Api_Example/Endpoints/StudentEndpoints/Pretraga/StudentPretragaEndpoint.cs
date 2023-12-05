@@ -1,5 +1,6 @@
 ﻿using FIT_Api_Example.Data;
 using FIT_Api_Example.Helper;
+using FIT_Api_Example.Helper.Auth;
 using FIT_Api_Example.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace FIT_Api_Example.Endpoints.StudentEndpoints.Pretraga;
 
 [Route("student")]
+[Autorizacija(studentskaSluzba: false, prodekan: true, dekan: true, studenti: false, nastavnici: true)]
 public class StudentPretragaEndpoint: MyBaseEndpoint<StudentPretragaRequest,  StudentPretragaResponse>
 {
     private readonly ApplicationDbContext _applicationDbContext;

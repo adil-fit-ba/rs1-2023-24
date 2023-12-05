@@ -81,6 +81,11 @@ namespace FIT_Api_Example.Helper.Auth
                 return;//ok - ima pravo pristupa
             }
 
+            if (loginInfo.KorisnickiNalog.IsNastavnik && _nastavnici)
+            {
+                return;
+            }
+
             if ((loginInfo.KorisnickiNalog.IsProdekan || loginInfo.KorisnickiNalog.IsDekan) && _prodekan)
             {
                 return;//ok - ima pravo pristupa
@@ -90,6 +95,7 @@ namespace FIT_Api_Example.Helper.Auth
                 return;//ok - ima pravo pristupa
             }
             
+
             //else nema pravo pristupa
             filterContext.Result = new UnauthorizedResult();
         }

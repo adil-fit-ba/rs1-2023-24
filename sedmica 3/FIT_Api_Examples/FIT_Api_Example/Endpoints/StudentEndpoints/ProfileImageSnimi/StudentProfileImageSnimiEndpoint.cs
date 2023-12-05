@@ -1,11 +1,13 @@
 ﻿using FIT_Api_Example.Data;
 using FIT_Api_Example.Helper;
+using FIT_Api_Example.Helper.Auth;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace FIT_Api_Example.Endpoints.StudentEndpoints.ProfileImageSnimi;
 
 [Route("student")]
+[Autorizacija(studentskaSluzba: false, prodekan: true, dekan: true, studenti: false, nastavnici: true)]
 public class StudentProfileImageSnimiEndpoint : MyBaseEndpoint<StudentProfileImageSnimiRequest, int>
 {
     private readonly ApplicationDbContext _applicationDbContext;

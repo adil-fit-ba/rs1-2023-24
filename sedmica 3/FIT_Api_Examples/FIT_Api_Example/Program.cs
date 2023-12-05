@@ -6,6 +6,7 @@ using Microsoft.Identity.Web;
 
 using Microsoft.Extensions.Configuration;
 using FIT_Api_Example.Services;
+using FIT_Api_Example.Helper.Auth;
 
 var config = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json", false)
@@ -19,7 +20,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.OperationFilter<AutorizacijaSwaggerHeader>();
+});
 builder.Services.AddTransient<MyAuthService>();
 builder.Services.AddTransient<MyEmailLog>();
 builder.Services.AddTransient<MyEmailSender>();

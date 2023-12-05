@@ -5,7 +5,7 @@ namespace FIT_Api_Example.Services
 {
     public class MyEmailLog
     {
-        const string posalji_na_moj_email = "jirawix168@tohup.com";//https://temp-mail.org/en/
+        const string posalji_na_moj_email = "xeceyo7099@mcenb.com";//https://temp-mail.org/en/
 
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly IHttpContextAccessor _httpContextAccessor;

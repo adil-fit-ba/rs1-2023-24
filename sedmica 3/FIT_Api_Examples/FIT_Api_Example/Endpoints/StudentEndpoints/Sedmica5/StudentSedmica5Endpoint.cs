@@ -1,12 +1,14 @@
 ﻿using FIT_Api_Example.Data;
 using FIT_Api_Example.Data.Models;
 using FIT_Api_Example.Helper;
+using FIT_Api_Example.Helper.Auth;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace FIT_Api_Example.Endpoints.StudentEndpoints.Sedmica5;
 
 [Route("student")]
+[Autorizacija(studentskaSluzba: false, prodekan: true, dekan: true, studenti: false, nastavnici: true)]
 public class StudentSedmica5Endpoint : MyBaseEndpoint<StudentSedmica5Request, List<Student>>
 {
     private readonly ApplicationDbContext _applicationDbContext;

@@ -1,6 +1,7 @@
 ﻿using FIT_Api_Example.Data;
 using FIT_Api_Example.Data.Models;
 using FIT_Api_Example.Helper;
+using FIT_Api_Example.Helper.Auth;
 using FIT_Api_Example.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace FIT_Api_Example.Endpoints.StudentEndpoints.Snimi;
 
 [Route("student")]
+[Autorizacija(studentskaSluzba: false, prodekan: true, dekan: true, studenti: false, nastavnici: true)]
 public class StudentSnimiEndpoint : MyBaseEndpoint<StudentSnimiRequest, int>
 {
     private readonly ApplicationDbContext _applicationDbContext;
@@ -22,18 +24,7 @@ public class StudentSnimiEndpoint : MyBaseEndpoint<StudentSnimiRequest, int>
     [HttpPost("snimi")]
     public override async Task<int> Obradi([FromBody] StudentSnimiRequest request, CancellationToken cancellationToken)
     {
-
-        if (!_authService.JelLogiran())
-        {
-            throw new Exception("nije logiran");
-        }
-
-        KorisnickiNalog korisnickiNalog = _authService.GetAuthInfo().KorisnickiNalog!;
-        if (!(korisnickiNalog.IsStudentskaSluzba || korisnickiNalog.IsAdmin || korisnickiNalog.IsProdekan))
-        {
-            throw new Exception("nema pravo pristupa");
-        }
-
+        
         Data.Models.Student? student;
         if (request.ID == 0)
         {

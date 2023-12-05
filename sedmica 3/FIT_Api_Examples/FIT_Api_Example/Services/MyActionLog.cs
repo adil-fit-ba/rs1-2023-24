@@ -18,7 +18,7 @@ namespace FIT_Api_Example.Services
             _dbContext = dbContext;
         }
 
-        public int Save(IExceptionHandlerPathFeature? exceptionMessage = null)
+        public async Task<int> Save(IExceptionHandlerPathFeature? exceptionMessage = null)
         {
             KorisnickiNalog? korisnik = _myAuthService.GetAuthInfo().KorisnickiNalog;
 
@@ -26,8 +26,6 @@ namespace FIT_Api_Example.Services
 
             var queryString = request.Query;
 
-            //if (queryString.Count == 0 && !request.HasFormContentType)
-            //    return 0;
 
             //IHttpRequestFeature feature = request.HttpContext.Features.Get<IHttpRequestFeature>();
             string detalji = "";
@@ -40,15 +38,15 @@ namespace FIT_Api_Example.Services
             }
 
             // convert stream to string
-            //StreamReader reader = new StreamReader(request.Body);
-//string bodyText = reader.ReadToEnd();
+           // StreamReader reader = new StreamReader(request.Body);
+            //string bodyText = await reader.ReadToEndAsync();
 
             var x = new LogKretanjePoSistemu
             {
                 korisnik = korisnik,
                 vrijeme = DateTime.Now,
                 queryPath = request.GetEncodedPathAndQuery(),
-                postData = detalji ,//+ "" + bodyText,
+                postData = detalji + " | ",// + bodyText,
                 ipAdresa = request.HttpContext.Connection.RemoteIpAddress?.ToString(),
             };
 
