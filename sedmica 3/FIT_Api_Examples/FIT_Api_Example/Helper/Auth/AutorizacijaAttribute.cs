@@ -1,4 +1,5 @@
 ﻿using FIT_Api_Example.Data;
+using FIT_Api_Example.Data.Models;
 using FIT_Api_Example.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -15,7 +16,7 @@ namespace FIT_Api_Example.Helper.Auth
     }
 
 
-    public class MyAuthorizeImpl : IActionFilter
+    public class MyAuthorizeImpl : IAsyncActionFilter
     {
         private readonly bool _studentskaSluzba;
         private readonly bool _prodekan;
@@ -33,71 +34,77 @@ namespace FIT_Api_Example.Helper.Auth
         }
         public void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            var actionLog = filterContext.HttpContext.RequestServices.GetService<MyActionLog>()!;
-
-            actionLog.Save();
+           
+         
         }
 
-        public void OnActionExecuting(ActionExecutingContext filterContext)
+    
+
+        public async Task  OnActionExecutionAsync(ActionExecutingContext filterContext, ActionExecutionDelegate next)
         {
             var dbContext = filterContext.HttpContext.RequestServices.GetService<ApplicationDbContext>()!;
             var authService = filterContext.HttpContext.RequestServices.GetService<MyAuthService>()!;
             var emailLog = filterContext.HttpContext.RequestServices.GetService<MyEmailLog>()!;
+            var actionLog = filterContext.HttpContext.RequestServices.GetService<MyActionLog>()!;
 
             var loginInfo = authService.GetAuthInfo();
-            if (!loginInfo.IsLogiran || loginInfo.KorisnickiNalog == null)
+
+            if (loginInfo == null || !loginInfo.IsLogiran)
             {
                 filterContext.Result = new UnauthorizedResult();
-                return;
+                return;//prekid
             }
 
-            if (!loginInfo.KorisnickiNalog.IsAktiviranNalog)
-            {
-                filterContext.Result = new UnauthorizedObjectResult("korisnik nije aktiviran - provjerite email poruke " + loginInfo.KorisnickiNalog.Email);
+            KorisnickiNalog k = loginInfo.KorisnickiNalog;
 
+            if (!k.IsAktiviranNalog)
+            {     
                 //ponovo posalji email za aktivaciju
-                emailLog.NoviKorisnik(loginInfo.KorisnickiNalog);
-                return;
+                emailLog.NoviKorisnik(k);
+                filterContext.Result = new UnauthorizedObjectResult("korisnik nije aktiviran - provjerite email poruke " + k.Email);
+                return; //prekid
             }
 
-            if (loginInfo.KorisnickiNalog.Is2FRequired)
+            if (k.Is2FRequired)
             {
                 if (loginInfo.AutentifikacijaToken == null || !loginInfo.AutentifikacijaToken.Is2FOtkljucan)
                 {
-                    filterContext.Result = new UnauthorizedObjectResult("potrebno je otkljucati login sa codom poslat na email " + loginInfo.KorisnickiNalog.Email);
-                    return;
+                    filterContext.Result = new UnauthorizedObjectResult("potrebno je otkljucati login sa codom poslat na email " + k.Email);
+                    return; //prekid;
                 }
-
-                return;//ok - ima pravo pristupa
-            }
-            
-            if (loginInfo.KorisnickiNalog.IsStudent && _studenti)
-            {
-                return;//ok - ima pravo pristupa
             }
 
-            if (loginInfo.KorisnickiNalog.IsDekan && _dekan)
+            bool imaPravoPristupa = k.IsStudent && _studenti;
+
+            if (k.IsDekan && _dekan)
             {
-                return;//ok - ima pravo pristupa
+                imaPravoPristupa = true;
             }
 
-            if (loginInfo.KorisnickiNalog.IsNastavnik && _nastavnici)
+            if (k.IsNastavnik && _nastavnici)
             {
-                return;
+                imaPravoPristupa = true;
             }
 
-            if ((loginInfo.KorisnickiNalog.IsProdekan || loginInfo.KorisnickiNalog.IsDekan) && _prodekan)
+            if ((k.IsProdekan || k.IsDekan) && _prodekan)
             {
-                return;//ok - ima pravo pristupa
+                imaPravoPristupa = true;
             }
-            if ((loginInfo.KorisnickiNalog.IsStudentskaSluzba || loginInfo.KorisnickiNalog.IsDekan || loginInfo.KorisnickiNalog.IsProdekan) && _studentskaSluzba)
+            if ((k.IsStudentskaSluzba || k.IsDekan || k.IsProdekan) && _studentskaSluzba)
             {
-                return;//ok - ima pravo pristupa
+                imaPravoPristupa = true;
             }
-            
 
-            //else nema pravo pristupa
-            filterContext.Result = new UnauthorizedResult();
+            if (imaPravoPristupa)
+            {
+                await next();
+                //code poslije akcije
+                await actionLog.Save();
+            }
+            else
+            {
+                filterContext.Result = new UnauthorizedResult();
+            }
         }
     }
 }

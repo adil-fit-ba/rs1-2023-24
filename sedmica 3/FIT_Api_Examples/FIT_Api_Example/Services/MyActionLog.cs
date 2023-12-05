@@ -2,6 +2,7 @@
 using FIT_Api_Example.Data.Models;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.AspNetCore.Http.Features;
 
 namespace FIT_Api_Example.Services
 {
@@ -38,15 +39,15 @@ namespace FIT_Api_Example.Services
             }
 
             // convert stream to string
-           // StreamReader reader = new StreamReader(request.Body);
-            //string bodyText = await reader.ReadToEndAsync();
+            StreamReader reader = new StreamReader(request.Body);
+            string bodyText = await reader.ReadToEndAsync();
 
             var x = new LogKretanjePoSistemu
             {
                 korisnik = korisnik,
                 vrijeme = DateTime.Now,
                 queryPath = request.GetEncodedPathAndQuery(),
-                postData = detalji + " | ",// + bodyText,
+                postData = detalji + " | "+ bodyText,
                 ipAdresa = request.HttpContext.Connection.RemoteIpAddress?.ToString(),
             };
 
@@ -56,7 +57,7 @@ namespace FIT_Api_Example.Services
                 x.exceptionMessage = exceptionMessage.Error.Message + " |" + exceptionMessage.Error.InnerException;
             }
             _dbContext.Add(x);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
 
             return x.id;
         }
