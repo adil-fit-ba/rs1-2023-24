@@ -23,12 +23,7 @@ public class StudentSnimiEndpoint : MyBaseEndpoint<StudentSnimiRequest, int>
     [HttpPost("snimi")]
     public override async Task<int> Obradi([FromBody] StudentSnimiRequest request, CancellationToken cancellationToken)
     {
-        KorisnickiNalog korisnickiNalog = _authService.GetAuthInfo().korisnickiNalog!;
-        if (!(korisnickiNalog.isStudentskaSluzba || korisnickiNalog.isAdmin || korisnickiNalog.isProdekan))
-        {
-            throw new Exception("nema pravo pristupa");
-        }
-
+       
         Data.Models.Student? student;
         if (request.ID == 0)
         {

@@ -1,4 +1,9 @@
 ﻿using System.Diagnostics;
+using FIT_Api_Example.Data.Models;
+using FIT_Api_Example.Data;
+using FIT_Api_Example.Services;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -16,6 +21,7 @@ namespace FIT_Api_Example.Helper.Auth
             ActionExecutingContext context, ActionExecutionDelegate next)
         {
             var authService = context.HttpContext.RequestServices.GetService<MyAuthService>()!;
+            var actionLogService= context.HttpContext.RequestServices.GetService<MyActionLogService>()!;
 
             if (!authService.IsLogiran())
             {
@@ -23,17 +29,16 @@ namespace FIT_Api_Example.Helper.Auth
                 return;
             }
 
+            MyAuthInfo myAuthInfo = authService.GetAuthInfo();
+
+            if (myAuthInfo.korisnickiNalog.Is2FActive && !myAuthInfo.autentifikacijaToken.Is2FOtkljucano)
+            {
+                context.Result = new UnauthorizedObjectResult("niste otkljucali 2f");
+                return;
+            }
+
             await next();
-
-            Log("OnActionExecutionAsync", context.RouteData);
-        }
-
-        private void Log(string methodName, RouteData routeData)
-        {
-            var controllerName = routeData.Values["controller"];
-            var actionName = routeData.Values["action"];
-            var message = $"{methodName} controller:{controllerName} action:{actionName}";
-            Debug.WriteLine(message, "Action Filter Log");
+            await actionLogService.Create(context.HttpContext);
         }
     }
 }
