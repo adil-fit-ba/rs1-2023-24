@@ -1,5 +1,5 @@
 using FIT_Api_Example.Data;
-using FIT_Api_Example.Helper.Services;
+using FIT_Api_Example.Helper.Auth;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;

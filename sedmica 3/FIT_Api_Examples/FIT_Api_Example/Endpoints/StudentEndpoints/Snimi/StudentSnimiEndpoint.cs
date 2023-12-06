@@ -1,13 +1,14 @@
 ﻿using FIT_Api_Example.Data;
 using FIT_Api_Example.Data.Models;
 using FIT_Api_Example.Helper;
-using FIT_Api_Example.Helper.Services;
+using FIT_Api_Example.Helper.Auth;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace FIT_Api_Example.Endpoints.StudentEndpoints.Snimi;
 
 [Route("student")]
+[MyAuthorization]
 public class StudentSnimiEndpoint : MyBaseEndpoint<StudentSnimiRequest, int>
 {
     private readonly ApplicationDbContext _applicationDbContext;
@@ -22,12 +23,6 @@ public class StudentSnimiEndpoint : MyBaseEndpoint<StudentSnimiRequest, int>
     [HttpPost("snimi")]
     public override async Task<int> Obradi([FromBody] StudentSnimiRequest request, CancellationToken cancellationToken)
     {
-
-        if (!_authService.IsLogiran())
-        {
-            throw new Exception("nije logiran");
-        }
-
         KorisnickiNalog korisnickiNalog = _authService.GetAuthInfo().korisnickiNalog!;
         if (!(korisnickiNalog.isStudentskaSluzba || korisnickiNalog.isAdmin || korisnickiNalog.isProdekan))
         {
