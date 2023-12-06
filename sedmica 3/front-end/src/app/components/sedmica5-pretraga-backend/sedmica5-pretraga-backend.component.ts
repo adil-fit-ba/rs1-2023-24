@@ -17,8 +17,14 @@ export class Sedmica5PretragaBackendComponent implements OnInit {
   studenti: StudentPretragaResponseStudent[] = [];
   ngOnInit(): void {
     let url = MojConfig.adresa_servera +`/student/pretraga`
-    this.httpClient.get<StudentPretragaResponse>(url).subscribe((x:StudentPretragaResponse)=>{
-      this.studenti = x.studenti;
+    this.httpClient.get<StudentPretragaResponse>(url).subscribe({
+      next: x=>{
+        this.studenti = x.studenti;
+      },
+      error: x => {
+        debugger
+        alert("greska" + x.error)
+      }
     })
   }
 

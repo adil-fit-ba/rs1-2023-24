@@ -5,6 +5,7 @@ import {MojConfig} from "../../moj-config";
 import {StudentiGetAllResponse, StudentiGetAllResponseStudent} from "./studenti-getall-response";
 import {MyAuthService} from "../../services/MyAuthService";
 import {Router} from "@angular/router";
+import {catchError, of, throwError} from "rxjs";
 
 @Component({
   selector: 'app-sedmica5-pretraga-js',
@@ -25,7 +26,15 @@ export class Sedmica5PretragaJsComponent implements OnInit {
 
     let url = MojConfig.adresa_servera +`/student/get-all`
 
-    this.httpClient.get<StudentiGetAllResponse>(url).subscribe((x:StudentiGetAllResponse)=>{
+    this.httpClient.get<StudentiGetAllResponse>(url)
+      .pipe(
+        catchError(x => {
+          debugger
+          alert(`Error: ${x.error}`);
+          return of();
+        })
+      )
+      .subscribe((x:StudentiGetAllResponse)=>{
       this.studenti = x.studenti;
     })
   }

@@ -15,6 +15,7 @@ import {MyAuthInterceptor} from "../helper/auth/my-auth-interceptor.service";
 import {AutorizacijaGuard} from "../helper/auth/autorizacija-guard.service";
 import { HomeStudentComponent } from './components/home-student/home-student.component';
 import { HomeNastavnikComponent } from './components/home-nastavnik/home-nastavnik.component';
+import { KorisnikAktivacijaComponent } from './components/korisnik-aktivacija/korisnik-aktivacija.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,22 +26,24 @@ import { HomeNastavnikComponent } from './components/home-nastavnik/home-nastavn
     Sedmica6EditComponent,
     Sedmica7LoginComponent,
     HomeStudentComponent,
-    HomeNastavnikComponent
+    HomeNastavnikComponent,
+    KorisnikAktivacijaComponent
   ],
     imports: [
         BrowserModule,
         FormsModule,
       HttpClientModule,
       RouterModule.forRoot([
-        {path:'', redirectTo:'sedmica4', pathMatch: 'full'},
-        {path:'home-student', component: HomeStudentComponent},
-        {path:'home-nastavnik', component: HomeNastavnikComponent},
-        {path:'sedmica4', component: Sedmica4Component},
-        {path:'sedmica5', component: Sedmica5Component},
+        {path:'',  component: HomeNastavnikComponent, canActivate: [AutorizacijaGuard]},
+        {path:'home-student', component: HomeStudentComponent, canActivate: [AutorizacijaGuard]},
+        {path:'home-nastavnik', component: HomeNastavnikComponent, canActivate: [AutorizacijaGuard]},
+        {path:'sedmica4', component: Sedmica4Component, canActivate: [AutorizacijaGuard]},
+        {path:'sedmica5', component: Sedmica5Component, canActivate: [AutorizacijaGuard]},
         {path:'sedmica5-js', component: Sedmica5PretragaJsComponent, canActivate: [AutorizacijaGuard]},
         {path:'sedmica5-backend', component: Sedmica5PretragaBackendComponent, canActivate: [AutorizacijaGuard]},
         {path:'sedmica6', component: Sedmica6EditComponent, canActivate: [AutorizacijaGuard]},
         {path:'auth/login', component: Sedmica7LoginComponent},
+        {path:'auth/aktivacija-angular', component: KorisnikAktivacijaComponent},
       ])
     ],
   providers: [

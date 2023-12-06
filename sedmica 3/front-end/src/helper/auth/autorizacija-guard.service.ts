@@ -12,7 +12,6 @@ export class AutorizacijaGuard implements CanActivate {
 
     //nedovrseno privremeno rjesenje
       if (this.myAuthService.isLogiran()) {
-
         let isStudent = this.myAuthService.isStudent();
 
         if (isStudent)
@@ -20,11 +19,14 @@ export class AutorizacijaGuard implements CanActivate {
           this.router.navigate(['/auth/login']);
           return false;
         }
+        const urlParams = new URLSearchParams(window.location.search);
+        const povratniUrl = urlParams.get('povratniUrl');
 
+
+      //  if (povratniUrl && povratniUrl.length)
+        //  this.router.navigate(["/" + povratniUrl]);
         return true;
       }
-
-
     // not logged in so redirect to login page with the return url
     this.router.navigate(['/auth/login'], { queryParams: { povratniUrl: state.url }});
     return false;
