@@ -32,13 +32,6 @@ namespace FIT_Api_Example.Helper.Auth
             _studenti = studenti;
             _nastavnici = nastavnici;
         }
-        public void OnActionExecuted(ActionExecutedContext filterContext)
-        {
-           
-         
-        }
-
-    
 
         public async Task  OnActionExecutionAsync(ActionExecutingContext filterContext, ActionExecutionDelegate next)
         {
