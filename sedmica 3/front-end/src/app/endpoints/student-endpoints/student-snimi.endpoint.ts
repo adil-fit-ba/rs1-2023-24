@@ -16,6 +16,7 @@ export class StudentSnimiEndpoint implements  MyBaseEndpoint<StudentSnimiRequest
 }
 
 export interface StudentSnimiRequest {
+  opstinaRodjenjaId: number;
   id: number;
   ime: string;
   prezime: string;

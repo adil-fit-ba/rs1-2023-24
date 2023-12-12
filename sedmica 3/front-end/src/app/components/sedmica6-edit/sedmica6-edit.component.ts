@@ -7,6 +7,10 @@ import {
   Student6PretragaResponseStudenti,
   StudentGetAllEndpoint
 } from "../../endpoints/student-endpoints/student-getall.endpoint";
+import {
+  OpstineGetAllEndpoint,
+  OpstineGetAllResponseOpstina
+} from "../../endpoints/opstine-endpoints/opstine-getall.endpoint";
 
 @Component({
   selector: 'app-sedmica6-edit',
@@ -16,9 +20,11 @@ import {
 export class Sedmica6EditComponent implements OnInit {
   public studenti:Student6PretragaResponseStudenti[]=[];
   public odabraniStudent: StudentSnimiRequest | null = null;
+  public opstine: OpstineGetAllResponseOpstina[]=[];
   constructor(
     private snimiEndpoint:StudentSnimiEndpoint,
-    private getAllEndpoint:StudentGetAllEndpoint
+    private getAllEndpoint:StudentGetAllEndpoint,
+    private opstineGetAllEndpoint:OpstineGetAllEndpoint
     ) { }
 
   ngOnInit(): void {
@@ -31,10 +37,17 @@ export class Sedmica6EditComponent implements OnInit {
         alert("greska: " + x.error)
       }
     })
+
+    this.opstineGetAllEndpoint.obradi().subscribe({
+      next:x=>{
+        this.opstine=x.opstine
+      }
+    })
   }
 
   odaberi(item: Student6PretragaResponseStudenti) {
     this.odabraniStudent = {
+      opstinaRodjenjaId: item.opstinaRodjenjaID,
       ime: item.ime,
       prezime: item.prezime,
       id: item.id

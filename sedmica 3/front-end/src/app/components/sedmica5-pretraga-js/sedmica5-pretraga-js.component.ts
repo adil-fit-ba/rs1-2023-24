@@ -5,6 +5,7 @@ import {MojConfig} from "../../moj-config";
 import {StudentiGetAllResponse, StudentiGetAllResponseStudent} from "./studenti-getall-response";
 import {MyAuthService} from "../../services/MyAuthService";
 import {Router} from "@angular/router";
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Component({
   selector: 'app-sedmica5-pretraga-js',
@@ -25,12 +26,23 @@ export class Sedmica5PretragaJsComponent implements OnInit {
 
     let url = MojConfig.adresa_servera +`/student/get-all`
 
-    this.httpClient.get<StudentiGetAllResponse>(url).subscribe((x:StudentiGetAllResponse)=>{
-      this.studenti = x.studenti;
-    })
+    this.httpClient.get<StudentiGetAllResponse>(url)
+      .subscribe({
+        next:x=>{
+          this.studenti = x.studenti;
+        },
+      error:x=>{
+          alert(x);
+      }
+      })
   }
 
   getFiltriraniStudetni() {
-    return this.studenti.filter(x=>(x.ime + ' ' + x.prezime).startsWith(this.pretragaNaziv) || (x.prezime + ' ' + x.ime).startsWith(this.pretragaNaziv))
+    return this.studenti.filter(x=>{
+      let v = (x.ime + ' ' + x.prezime).toLowerCase().startsWith(this.pretragaNaziv.toLowerCase()) || (x.prezime + ' ' + x.ime).toLowerCase().startsWith(this.pretragaNaziv.toLowerCase()) || x.opstinaRodjenjaNaziv.toLowerCase().startsWith(this.pretragaNaziv.toLowerCase())
+      return v;
+    })
+
+
   }
 }

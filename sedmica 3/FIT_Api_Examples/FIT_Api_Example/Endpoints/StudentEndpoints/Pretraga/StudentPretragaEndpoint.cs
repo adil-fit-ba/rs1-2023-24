@@ -37,7 +37,8 @@ public class StudentPretragaEndpoint: MyBaseEndpoint<StudentPretragaRequest,  St
                 KorisnickoIme = x.KorisnickoIme,
                 OpstinaRodjenjaDrzava = x.OpstinaRodjenja.drzava.Naziv,
                 OpstinaRodjenjaNaziv = x.OpstinaRodjenja.description,
-                SlikaKorisnika = x.SlikaKorisnika
+                SlikaKorisnika = x.SlikaKorisnika,
+                OpstinaRodjenjaID = x.OpstinaRodjenjaID
             })
             .ToListAsync(cancellationToken: cancellationToken);
 

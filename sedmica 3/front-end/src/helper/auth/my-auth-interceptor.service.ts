@@ -15,7 +15,6 @@ export class MyAuthInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     // Get the auth token from the service.
     const authToken = this.auth.getAuthorizationToken()?.vrijednost??"";
-
     // Clone the request and replace the original headers with
     // cloned headers, updated with the authorization.
     const authReq = req.clone({
@@ -30,7 +29,7 @@ export class MyAuthInterceptor implements HttpInterceptor {
           if (err.status !== 401){
             return;
           }
-          debugger
+
           this.router.navigateByUrl('/auth/login');
         }
       })

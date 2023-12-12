@@ -29,4 +29,5 @@ export interface Student6PretragaResponseStudenti {
   datumRodjenja: string
   korisnickoIme: string
   slikaKorisnika: string
+  opstinaRodjenjaID:number
 }

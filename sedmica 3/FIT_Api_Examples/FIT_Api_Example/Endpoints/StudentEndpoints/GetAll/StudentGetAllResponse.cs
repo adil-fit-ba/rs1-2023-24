@@ -15,4 +15,5 @@ public class StudentGetAllResponseStudent
     public DateTime DatumRodjenja{ get; set; }
     public string KorisnickoIme{ get; set; }
     public string SlikaKorisnika { get; set; }
+    public int OpstinaRodjenjaID { get; set; }
 }

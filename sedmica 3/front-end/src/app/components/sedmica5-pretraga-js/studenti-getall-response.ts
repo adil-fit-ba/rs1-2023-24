@@ -12,4 +12,5 @@ export interface StudentiGetAllResponseStudent {
   opstinaRodjenjaDrzava: string
   datumRodjenja: string
   korisnickoIme: string
+  opstinaRodjenjaID: number
 }
