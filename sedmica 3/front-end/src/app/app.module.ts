@@ -17,6 +17,7 @@ import { HomeStudentComponent } from './components/home-student/home-student.com
 import { HomeNastavnikComponent } from './components/home-nastavnik/home-nastavnik.component';
 import { Authorize2fComponent } from './components/authorize2f/authorize2f.component';
 import {NotLoggedUserComponent} from "./components/not-logged-user/not-logged-user.component";
+import { StudentMaticnaKnjigaComponent } from './components/student-maticna-knjiga/student-maticna-knjiga.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +30,8 @@ import {NotLoggedUserComponent} from "./components/not-logged-user/not-logged-us
     NotLoggedUserComponent,
     HomeStudentComponent,
     HomeNastavnikComponent,
-    Authorize2fComponent
+    Authorize2fComponent,
+    StudentMaticnaKnjigaComponent
   ],
     imports: [
         BrowserModule,
@@ -46,6 +48,7 @@ import {NotLoggedUserComponent} from "./components/not-logged-user/not-logged-us
         {path:'sedmica6', component: Sedmica6EditComponent, canActivate: [AutorizacijaGuard]},
         {path:'2f-authorize', component: Authorize2fComponent, canActivate: [AutorizacijaGuard]},
         {path:'auth/login', component: Sedmica7LoginComponent},
+        {path:'student/maticna-knjiga/:studentid', component:StudentMaticnaKnjigaComponent,canActivate: [AutorizacijaGuard]}
       ])
     ],
   providers: [
