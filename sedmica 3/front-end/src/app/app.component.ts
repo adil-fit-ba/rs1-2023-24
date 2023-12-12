@@ -11,33 +11,18 @@ import {MyAuthService} from "./services/MyAuthService";
 })
 export class AppComponent implements OnInit{
 
-  constructor(public router: Router, private httpClient: HttpClient, public myAuthService: MyAuthService) {
+  constructor(public router: Router, public myAuthService: MyAuthService) {
   }
 
   ngOnInit(): void {
   }
-
 
   idi(s: string) {
     this.router.navigate([s])
   }
 
   logout() {
-
-
-
-    let token = window.localStorage.getItem("my-auth-token")??"";
-    window.localStorage.setItem("my-auth-token","");
-
-    let url=MojConfig.adresa_servera+`/auth/logout`
-    this.httpClient.post(url, {}, {
-      headers:{
-        "my-auth-token": token
-      }
-    }).subscribe(x=>{
-        console.log("logout uspjesan")
-    })
-
+    this.myAuthService.signOut();
     this.router.navigate(["/auth/login"])
   }
 }

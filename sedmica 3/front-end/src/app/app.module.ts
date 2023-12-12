@@ -16,6 +16,7 @@ import {AutorizacijaGuard} from "../helper/auth/autorizacija-guard.service";
 import { HomeStudentComponent } from './components/home-student/home-student.component';
 import { HomeNastavnikComponent } from './components/home-nastavnik/home-nastavnik.component';
 import { Authorize2fComponent } from './components/authorize2f/authorize2f.component';
+import {NotLoggedUserComponent} from "./components/not-logged-user/not-logged-user.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,6 +26,7 @@ import { Authorize2fComponent } from './components/authorize2f/authorize2f.compo
     Sedmica5PretragaBackendComponent,
     Sedmica6EditComponent,
     Sedmica7LoginComponent,
+    NotLoggedUserComponent,
     HomeStudentComponent,
     HomeNastavnikComponent,
     Authorize2fComponent
