@@ -44,7 +44,10 @@
     <td>
       <img class="profilna-slika" src="{{ item.slikaKorisnika }}">
     </td>
-    <td><button (click)="odaberi(item)">Odaberi</button></td>
+    <td>
+      <button  class="btn btn-warning" (click)="odaberi(item)">Odaberi</button>
+      <a class="btn btn-primary" [routerLink]="['/student/maticna-knjiga', item.id]">Maticna knjiga</a>
+    </td>
   </tr>
   </tbody>
 </table>
