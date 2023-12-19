@@ -29,6 +29,27 @@ public class StudentMaticnaKnjigaGetEndpoint : MyBaseEndpoint<int, StudentMaticn
         var result = new StudentMaticnaKnjigaGetResponse
         {
            
+            Id = student.ID,
+            Ime = student.Ime,
+            Prezime = student.Prezime,
+            UpisaneGodine = await _applicationDbContext
+                .AkGodines
+                .Where(x=>x.StudentId==student.ID)
+                .Select(x=>new StudentMaticnaKnjigaGetResponseUpisaneGodine
+                {
+                    Id = x.Id,
+                    AkademskaGodina = x.AkademskaGodina.Opis,
+                    GodinaStudija = x.Godinastudina.ToString(),
+                    KorisnikEvidentirao = new StudentMaticnaKnjigaGetResponseUpisaneGodineKorisnik
+                    {
+                        Id = x.EvidentiraoKorisnikId,
+                        Ime = x.EvidentiraoKorisnik.KorisnickoIme,
+                        Prezime = x.EvidentiraoKorisnik.KorisnickoIme
+                    },
+                    Obnova = x.JelObnova,
+                    ZimskiSemestarUpis = x.DatumUpisZimski,
+                    ZimskiSemestarOvjera = x.DatumOvjeraZimski
+                }).ToListAsync(cancellationToken)
         };
         
 
