@@ -13,18 +13,26 @@ export class StudentMaticnaKnjigaGetEndpoint implements  MyBaseEndpoint<number, 
     }
 }
 
-export interface StudentMaticnaKnjigaGetResponse {
-
+export  interface StudentMaticnaKnjigaGetResponse {
+  id: number;
+  ime: string;
+  prezime: string;
+  upisaneGodine: StudentMaticnaKnjigaGetResponseUpisaneGodine[];
 }
 
-export interface Student6PretragaResponseStudenti {
-  id: number
-  ime: string
-  prezime: string
-  opstinaRodjenjaNaziv: string
-  opstinaRodjenjaDrzava: string
-  datumRodjenja: string
-  korisnickoIme: string
-  slikaKorisnika: string
-  opstinaRodjenjaID:number
+export interface StudentMaticnaKnjigaGetResponseUpisaneGodine {
+  id: number;
+  akademskaGodina: string;
+  godinaStudija: string;
+  obnova: boolean;
+  zimskiSemestarUpis: Date;
+  zimskiSemestarOvjera: Date | null;
+  korisnikEvidentirao: StudentMaticnaKnjigaGetResponseUpisaneGodineKorisnik;
 }
+
+export interface StudentMaticnaKnjigaGetResponseUpisaneGodineKorisnik {
+  id: number;
+  ime: string;
+  prezime: string;
+}
+

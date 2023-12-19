@@ -1,3 +1,30 @@
 <p>student-maticna-knjiga works!</p>
 <p>{{studentid}}</p>
 <h1>hello</h1>
+<!-- app.component.html -->
+
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Akademska Godina</th>
+    <th>Godina Studija</th>
+    <th>Obnova</th>
+    <th>Zimski Semestar Upis</th>
+    <th>Zimski Semestar Ovjera</th>
+    <th>Korisnik Evidentirao</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let item of upisaneGodine">
+    <td>{{ item.id }}</td>
+    <td>{{ item.akademskaGodina }}</td>
+    <td>{{ item.godinaStudija }}</td>
+    <td>{{ item.obnova }}</td>
+    <td>{{ item.zimskiSemestarUpis | date: 'short' }}</td>
+    <td>{{ item.zimskiSemestarOvjera ? (item.zimskiSemestarOvjera | date: 'short') : 'N/A' }}</td>
+    <td>{{ item.korisnikEvidentirao.ime }} {{ item.korisnikEvidentirao.prezime }}</td>
+  </tr>
+  </tbody>
+</table>
+
