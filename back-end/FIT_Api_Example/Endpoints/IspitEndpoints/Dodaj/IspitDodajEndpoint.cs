@@ -22,6 +22,7 @@ public class IspitDodajEndpoint: MyBaseEndpoint<IspitDodajRequest,  IspitDodajRe
             PredmetID = request.PredmetId,
             DatumVrijemeIspita = request.Satnica,
             Komentar = request.Komentar
+            
         };
         _applicationDbContext.Ispit.Add(noviObj);//
 

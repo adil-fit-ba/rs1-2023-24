@@ -8,7 +8,7 @@ export class StudentMaticnaKnjigaGetEndpoint implements  MyBaseEndpoint<number, 
   constructor(public httpClient:HttpClient) { }
 
   obradi(studentid: number): Observable<StudentMaticnaKnjigaGetResponse> {
-      let url=MojConfig.adresa_servera+`/student/maticna-knjiga/get/${studentid}`;
+      let url=MojConfig.adresa_servera+`/student/maticna-knjiga/${studentid}`;
       return this.httpClient.get<StudentMaticnaKnjigaGetResponse>(url);
     }
 }

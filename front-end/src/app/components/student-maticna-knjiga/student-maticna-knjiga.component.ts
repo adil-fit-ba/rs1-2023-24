@@ -12,11 +12,15 @@ import {
 export class StudentMaticnaKnjigaComponent implements OnInit {
   public studentid: any;
   public upisaneGodine: StudentMaticnaKnjigaGetResponseUpisaneGodine[] = [];
+  prikaziDialog=false;
 
   constructor(public activatedRoute: ActivatedRoute, private studentMaticnaKnjigaGetEndpoint: StudentMaticnaKnjigaGetEndpoint) {
   }
 
   ngOnInit(): void {
+
+    this.studentid = this.activatedRoute.snapshot.params["studentid"]
+
     this.studentMaticnaKnjigaGetEndpoint.obradi(this.studentid).subscribe({
       next: x => {
         this.upisaneGodine = x.upisaneGodine;
@@ -29,4 +33,7 @@ export class StudentMaticnaKnjigaComponent implements OnInit {
 
   }
 
+  snimi() {
+    
+  }
 }

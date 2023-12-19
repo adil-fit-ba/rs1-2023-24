@@ -4,7 +4,7 @@ using FIT_Api_Example.Helper.Auth;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace FIT_Api_Example.Endpoints.StudentEndpoints.MaticnaKnjigaEndpoints.Get;
+namespace FIT_Api_Example.Endpoints.MaticnaKnjigaEndpoints.Get;
 
 [Route("student/maticna-knjiga")]
 [MyAuthorization]
@@ -28,14 +28,14 @@ public class StudentMaticnaKnjigaGetEndpoint : MyBaseEndpoint<int, StudentMaticn
 
         var result = new StudentMaticnaKnjigaGetResponse
         {
-           
+
             Id = student.ID,
             Ime = student.Ime,
             Prezime = student.Prezime,
             UpisaneGodine = await _applicationDbContext
                 .AkGodines
-                .Where(x=>x.StudentId==student.ID)
-                .Select(x=>new StudentMaticnaKnjigaGetResponseUpisaneGodine
+                .Where(x => x.StudentId == student.ID)
+                .Select(x => new StudentMaticnaKnjigaGetResponseUpisaneGodine
                 {
                     Id = x.Id,
                     AkademskaGodina = x.AkademskaGodina.Opis,
@@ -51,7 +51,7 @@ public class StudentMaticnaKnjigaGetEndpoint : MyBaseEndpoint<int, StudentMaticn
                     ZimskiSemestarOvjera = x.DatumOvjeraZimski
                 }).ToListAsync(cancellationToken)
         };
-        
+
 
 
         return result;

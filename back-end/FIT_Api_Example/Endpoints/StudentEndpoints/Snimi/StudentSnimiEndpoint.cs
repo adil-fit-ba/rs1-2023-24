@@ -44,7 +44,7 @@ public class StudentSnimiEndpoint : MyBaseEndpoint<StudentSnimiRequest, int>
         //student.BrojIndeksa = request.BrojIndeksa;
         //student.DatumRodjenja = request.DatumRodjenja;
         student.OpstinaRodjenjaID = request.OpstinaRodjenjaId;
-
+      
         await _applicationDbContext.SaveChangesAsync(cancellationToken);
 
         return student.ID;
