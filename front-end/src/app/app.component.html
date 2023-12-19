@@ -1,19 +1,10 @@
-<!--
-<div>
-  <button class="btn btn-primary" (click)="idi('/sedmica4')">Sedmica 4</button>
-  <button class="btn btn-primary" (click)="idi(  '/sedmica5')">Sedmica 5</button>
-  <button class="btn btn-primary" (click)="idi(  '/sedmica5-js')">Sedmica 5 pretraga JS</button>
-  <button class="btn btn-primary" (click)="idi(  '/sedmica5-backend')">Sedmica 5 pretraga Backend</button>
-  <button class="btn btn-primary" (click)="idi( '/sedmica6')">Sedmica 6 Edit</button>
-</div>
--->
 
 <div *ngIf="myAuthService.isLogiran()">
   <a class="btn btn-primary" routerLink='/sedmica4'>Sedmica 4 </a>
   <a class="btn btn-primary" routerLink='/sedmica5'>Sedmica 5 </a>
   <a class="btn btn-primary" routerLink='/sedmica5-js'>Sedmica 5 pretraga JS </a>
   <a class="btn btn-primary" routerLink='/sedmica5-backend'>Sedmica 5 pretraga Backend </a>
-  <a *ngIf="myAuthService.isStudentskaSluzba() || myAuthService.isAdmin() || myAuthService.isProdekan()" class="btn btn-primary" routerLink='/sedmica6'>Sedmica 6 Edit </a>
+  <a class="btn btn-primary" routerLink='/sedmica6'>Sedmica 6 Edit </a>
   <a class="btn btn-primary" (click)="logout()">Sedmica7 Logout </a>
 </div>
 
