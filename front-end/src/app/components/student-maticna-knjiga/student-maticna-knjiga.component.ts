@@ -34,6 +34,6 @@ export class StudentMaticnaKnjigaComponent implements OnInit {
   }
 
   snimi() {
-    
+		//prazna funkcija
   }
 }
