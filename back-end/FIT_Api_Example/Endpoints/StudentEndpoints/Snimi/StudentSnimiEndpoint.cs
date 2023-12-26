@@ -4,6 +4,7 @@ using FIT_Api_Example.Helper;
 using FIT_Api_Example.Helper.Auth;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
 
 namespace FIT_Api_Example.Endpoints.StudentEndpoints.Snimi;
 
@@ -41,6 +42,13 @@ public class StudentSnimiEndpoint : MyBaseEndpoint<StudentSnimiRequest, int>
 
         student.Ime = request.Ime.RemoveTags();
         student.Prezime = request.Prezime.RemoveTags();
+
+        if (!string.IsNullOrEmpty(request.SlikaStudentaNova))
+        {
+            byte[] byteArray = Convert.FromBase64String(request.SlikaStudentaNova.Split(',')[1]);
+            System.IO.File.WriteAllBytes("slika" + student.ID+".png", byteArray);
+        }
+
         //student.BrojIndeksa = request.BrojIndeksa;
         //student.DatumRodjenja = request.DatumRodjenja;
         student.OpstinaRodjenjaID = request.OpstinaRodjenjaId;

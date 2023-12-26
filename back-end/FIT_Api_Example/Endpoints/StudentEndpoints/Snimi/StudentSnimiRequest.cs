@@ -9,4 +9,6 @@ public class StudentSnimiRequest
     //public string BrojIndeksa { get; set; }
     public int OpstinaRodjenjaId { get; set; }
     //public DateTime DatumRodjenja { get; set; }
+
+    public string SlikaStudentaNova { get; set; }
 }

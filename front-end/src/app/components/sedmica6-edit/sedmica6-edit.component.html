@@ -30,6 +30,13 @@
           </div>
 
           <div>
+            <label class="form-label"> Nova slika: </label>
+            <input id="input-slika-id" class="form-control" type="file" accept="images/*" (change)="generisi_preview_slike()">
+            <img [src]="odabraniStudent!.slikaStudentaNova" style="width: 100%">
+          </div>
+
+
+          <div>
             <label class="form-label"> Opstina Rođenja: </label>
             <select class="form-control"  [(ngModel)]="odabraniStudent.opstinaRodjenjaId">
               <option *ngFor="let c of opstine" [value]="c.id">{{c.opis}}</option>

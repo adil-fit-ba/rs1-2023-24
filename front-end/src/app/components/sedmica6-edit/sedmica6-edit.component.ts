@@ -50,8 +50,26 @@ export class Sedmica6EditComponent implements OnInit {
       opstinaRodjenjaId: item.opstinaRodjenjaID,
       ime: item.ime,
       prezime: item.prezime,
-      id: item.id
+      id: item.id,
+      slikaStudentaNova:""
     } ;
+  }
+
+  generisi_preview_slike()
+  {
+    // @ts-ignore
+    let f= document.getElementById("input-slika-id").files[0]
+
+    if (f && this.odabraniStudent)
+    {
+      let fileReader = new FileReader();
+
+      fileReader.onload = ()=>{
+        this.odabraniStudent!.slikaStudentaNova = fileReader.result!.toString()
+      }
+
+      fileReader.readAsDataURL(f);
+    }
   }
 
 
