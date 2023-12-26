@@ -1,9 +1,13 @@
-﻿using FIT_Api_Example.Data;
+﻿using Azure.Core;
+using FIT_Api_Example.Data;
 using FIT_Api_Example.Data.Models;
 using FIT_Api_Example.Helper;
 using FIT_Api_Example.Helper.Auth;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Drawing;
+using SkiaSharp;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace FIT_Api_Example.Endpoints.StudentEndpoints.Snimi;
 
@@ -45,10 +49,45 @@ public class StudentSnimiEndpoint : MyBaseEndpoint<StudentSnimiRequest, int>
         //student.DatumRodjenja = request.DatumRodjenja;
         student.OpstinaRodjenjaID = request.OpstinaRodjenjaID;
 
+        if (!string.IsNullOrEmpty(request.Slika_base64_format))
+        {
+            byte[]? slika_bajtovi = request.Slika_base64_format?.ParsirajBase64();
+
+            byte[]? slika_bajtovi_resized_velika = resize(slika_bajtovi, 200);
+            byte[]? slika_bajtovi_resized_mala = resize(slika_bajtovi, 50);
+            
+           
+            //1- file system od web servera ili neki treci servis kao sto je azure blob store ili aws 
+        }
+
         await _applicationDbContext.SaveChangesAsync(cancellationToken);
 
         return student.ID;
     }
 
+    public static byte[]? resize(byte[] slikaBajtovi, int size, int quality = 75)
+    {
+        using var input = new MemoryStream(slikaBajtovi);
+        using var inputStream = new SKManagedStream(input);
+        using var original = SKBitmap.Decode(inputStream);
+        int width, height;
+        if (original.Width > original.Height)
+        {
+            width = size;
+            height = original.Height * size / original.Width;
+        }
+        else
+        {
+            width = original.Width * size / original.Height;
+            height = size;
+        }
 
+        using var resized = original
+            .Resize(new SKImageInfo(width, height), SKBitmapResizeMethod.Lanczos3);
+        if (resized == null) return null;
+
+        using var image = SKImage.FromBitmap(resized);
+        return image.Encode(SKEncodedImageFormat.Jpeg, quality)
+            .ToArray();
+    }
 }

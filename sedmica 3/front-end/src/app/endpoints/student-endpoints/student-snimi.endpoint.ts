@@ -20,5 +20,6 @@ export interface StudentSnimiRequest {
   ime: string;
   prezime: string;
   opstinaRodjenjaID: number
+  slika_base64_format: string | undefined
 }
 

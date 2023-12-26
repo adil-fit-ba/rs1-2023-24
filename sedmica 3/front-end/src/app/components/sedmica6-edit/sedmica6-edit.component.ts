@@ -20,7 +20,7 @@ import {
 export class Sedmica6EditComponent implements OnInit {
   public studenti:Student6PretragaResponseStudenti[]=[];
   public odabraniStudent: StudentSnimiRequest | null = null;
-  modalTitle = "Edit student";
+  public modalTitle = "Edit student";
   public opstine: OpstineGetAllResponseOpstina[] = [];
   public pretragaNaziv: string="";
 
@@ -55,7 +55,8 @@ export class Sedmica6EditComponent implements OnInit {
       ime: item.ime,
       prezime: item.prezime,
       id: item.id,
-      opstinaRodjenjaID: item.opstinaRodjenjaID
+      opstinaRodjenjaID: item.opstinaRodjenjaID,
+      slika_base64_format:""
     } ;
   }
   getFiltriraniStudetni() {
@@ -68,7 +69,6 @@ export class Sedmica6EditComponent implements OnInit {
   }
 
   snimi(): void {
-
     this.snimiEndpoint.obradi(this.odabraniStudent!).subscribe((x)=>{
       alert("uredu")
       this.ngOnInit();
@@ -78,5 +78,19 @@ export class Sedmica6EditComponent implements OnInit {
 
   zatvori() {
     this.odabraniStudent = null;
+  }
+
+  generisi_preview() {
+    // @ts-ignore
+    var file = document.getElementById("slika-input").files[0];
+    if (file && this.odabraniStudent)
+    {
+      var reader = new FileReader();
+      reader.onload = ()=>{
+        this.odabraniStudent!.slika_base64_format = reader.result?.toString();
+      }
+      reader.readAsDataURL(file)
+    }
+
   }
 }
