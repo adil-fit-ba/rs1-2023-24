@@ -66,7 +66,7 @@ export class StudentMaticnaKnjigaComponent implements OnInit {
           this.upisNoviSemestar = null
           setTimeout(()=>{
             // @ts-ignore
-            dialogSuccess("uspjesno dodat semestar");
+            dialogSuccess("uspjesno dodat semestar"); 
           }, 50)
         })
     }

@@ -2,7 +2,9 @@
 using FIT_Api_Example.Data.Models;
 using FIT_Api_Example.Helper;
 using FIT_Api_Example.Helper.Auth;
+using FIT_Api_Example.SignalRHubs;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace FIT_Api_Example.Endpoints.MaticnaKnjigaEndpoints.Dodaj;
 
@@ -12,10 +14,12 @@ public class StudentMaticnaKnjigaDodajEndpoint : MyBaseEndpoint<StudentMaticnaKn
 {
     private readonly ApplicationDbContext _applicationDbContext;
     private readonly MyAuthService _authService;
-    public StudentMaticnaKnjigaDodajEndpoint(ApplicationDbContext applicationDbContext, MyAuthService authService)
+    private readonly IHubContext<PorukeHub> _porukeHub;
+    public StudentMaticnaKnjigaDodajEndpoint(ApplicationDbContext applicationDbContext, MyAuthService authService, IHubContext<PorukeHub> porukeHub)
     {
         _applicationDbContext = applicationDbContext;
         _authService = authService;
+        _porukeHub = porukeHub;
     }
 
     [HttpPost()]
@@ -34,6 +38,11 @@ public class StudentMaticnaKnjigaDodajEndpoint : MyBaseEndpoint<StudentMaticnaKn
 
         await _applicationDbContext.AddAsync(noviZapis,cancellationToken);
         await _applicationDbContext.SaveChangesAsync(cancellationToken);
+
+        var student = _applicationDbContext.Student.Find(request.StudentID);
+
+        string p = "Trenutno vrijeme je " + DateTime.Now;
+        await _porukeHub.Clients.All.SendAsync("prijem_poruke_js", p + " - " + student.BrojIndeksa);
 
         return new NoResponse();
     }
