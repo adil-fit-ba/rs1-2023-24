@@ -72,8 +72,11 @@ public class StudentSnimiEndpoint : MyBaseEndpoint<StudentSnimiRequest, int>
                 Directory.CreateDirectory(folderPath);
             }
 
-            await System.IO.File.WriteAllBytesAsync($"{folderPath}/{request.ID}-velika.jpg", slika_bajtovi_resized_velika, cancellationToken);
-            await System.IO.File.WriteAllBytesAsync($"{folderPath}/{request.ID}-mala.jpg", slika_bajtovi_resized_mala, cancellationToken);
+            student.SlikaKorisnikaMala = $"{folderPath}/{Guid.NewGuid().ToString()}.jpg";
+            student.SlikaKorisnikaVelika = $"{folderPath}/{Guid.NewGuid().ToString()}.jpg";
+
+            await System.IO.File.WriteAllBytesAsync(student.SlikaKorisnikaMala, slika_bajtovi_resized_velika, cancellationToken);
+            await System.IO.File.WriteAllBytesAsync(student.SlikaKorisnikaVelika, slika_bajtovi_resized_mala, cancellationToken);
 
             //1- file system od web servera ili neki treci servis kao sto je azure blob store ili aws 
         }

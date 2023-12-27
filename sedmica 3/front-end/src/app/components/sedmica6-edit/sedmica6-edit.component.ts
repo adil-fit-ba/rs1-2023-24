@@ -34,7 +34,11 @@ export class Sedmica6EditComponent implements OnInit {
     let url=MojConfig.adresa_servera+`/student/pretraga`;
     this.getAllEndpoint.obradi().subscribe({
       next: x =>{
+        x.studenti.forEach(s=>{
+          s.random = this.getRandomNumber();
+        })
         this.studenti=x.studenti;
+
       },
       error: x =>{
         alert("greska: " + x.error)
@@ -95,4 +99,10 @@ export class Sedmica6EditComponent implements OnInit {
   }
 
   protected readonly MojConfig = MojConfig;
+
+  getRandomNumber() {
+    let min = 1;
+    let max = 10000;
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
 }

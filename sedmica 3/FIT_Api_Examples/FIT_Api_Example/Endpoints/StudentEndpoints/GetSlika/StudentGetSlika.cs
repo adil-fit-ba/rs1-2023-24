@@ -5,6 +5,7 @@ using System.Net.Mime;
 using System.Threading;
 using System;
 using System.Web;
+using FIT_Api_Example.Data;
 using Microsoft.AspNetCore.StaticFiles;
 
 namespace FIT_Api_Example.Endpoints.StudentEndpoints.GetSlika
@@ -13,15 +14,24 @@ namespace FIT_Api_Example.Endpoints.StudentEndpoints.GetSlika
     [Route("student")]
     public class StudentGetSlika : ControllerBase
     {
-        [HttpGet("slika")]
-        public async Task<FileContentResult> GetByID(int id, CancellationToken cancellationToken)
+
+        private ApplicationDbContext _context;
+
+        public StudentGetSlika(ApplicationDbContext context)
         {
-            var folderPath = "slike-studenata";
+            _context = context;
+        }
+
+        [HttpGet("slika-velika")]
+        public async Task<FileContentResult> GetByIDVelika(int id, CancellationToken cancellationToken)
+        {
+
+            var student = await _context.Student.FindAsync(id);
 
             byte[] slika;
             try
             {
-                var fileName = $"{folderPath}/{id}-velika.jpg";
+                var fileName = student.SlikaKorisnikaVelika;
                 slika = await System.IO.File.ReadAllBytesAsync(fileName, cancellationToken);
                 return File(slika, GetMimeType(fileName));
             }
@@ -31,7 +41,6 @@ namespace FIT_Api_Example.Endpoints.StudentEndpoints.GetSlika
                 slika = await System.IO.File.ReadAllBytesAsync(fileName, cancellationToken);
                 return File(slika, GetMimeType(fileName));
             }
-
         }
 
         static string GetMimeType(string fileName)
