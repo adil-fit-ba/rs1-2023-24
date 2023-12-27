@@ -93,4 +93,6 @@ export class Sedmica6EditComponent implements OnInit {
     }
 
   }
+
+  protected readonly MojConfig = MojConfig;
 }

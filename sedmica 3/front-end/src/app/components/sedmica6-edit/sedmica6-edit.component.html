@@ -73,7 +73,7 @@
     <td>{{ item.datumRodjenja | date }}</td>
     <td>{{ item.korisnickoIme }}</td>
     <td>
-      <img class="profilna-slika" src="{{ item.slikaKorisnika }}">
+      <img class="profilna-slika" src="{{MojConfig.adresa_servera}}/student/slika?id={{item.id}}">
     </td>
     <td>
       <button  class="btn btn-warning" (click)="odaberi(item)">Odaberi</button>

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Drawing;
 using SkiaSharp;
 using static System.Net.Mime.MediaTypeNames;
+using System.Collections;
 
 namespace FIT_Api_Example.Endpoints.StudentEndpoints.Snimi;
 
@@ -53,10 +54,27 @@ public class StudentSnimiEndpoint : MyBaseEndpoint<StudentSnimiRequest, int>
         {
             byte[]? slika_bajtovi = request.Slika_base64_format?.ParsirajBase64();
 
+            if (slika_bajtovi == null)
+                throw new Exception("pogresan base64 format");
+
             byte[]? slika_bajtovi_resized_velika = resize(slika_bajtovi, 200);
+            if (slika_bajtovi_resized_velika == null)
+                throw new Exception("pogresan format slike");
+
             byte[]? slika_bajtovi_resized_mala = resize(slika_bajtovi, 50);
-            
-           
+            if (slika_bajtovi_resized_mala == null)
+                throw new Exception("pogresan format slike");
+
+            var folderPath = "slike-studenata";
+            if (!Directory.Exists(folderPath))
+            {
+                // Create the folder if it does not exist
+                Directory.CreateDirectory(folderPath);
+            }
+
+            await System.IO.File.WriteAllBytesAsync($"{folderPath}/{request.ID}-velika.jpg", slika_bajtovi_resized_velika, cancellationToken);
+            await System.IO.File.WriteAllBytesAsync($"{folderPath}/{request.ID}-mala.jpg", slika_bajtovi_resized_mala, cancellationToken);
+
             //1- file system od web servera ili neki treci servis kao sto je azure blob store ili aws 
         }
 
