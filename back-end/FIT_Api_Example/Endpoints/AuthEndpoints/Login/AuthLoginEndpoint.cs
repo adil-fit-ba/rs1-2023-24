@@ -2,7 +2,9 @@
 using FIT_Api_Example.Data.Models;
 using FIT_Api_Example.Helper;
 using FIT_Api_Example.Helper.Auth;
+using FIT_Api_Example.SignalRHubs;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 
 namespace FIT_Api_Example.Endpoints.AuthEndpoints.Login;
@@ -13,11 +15,18 @@ public class AuthLoginEndpoint : MyBaseEndpoint<AuthLoginRequest, MyAuthInfo>
     private readonly ApplicationDbContext _applicationDbContext;
     private readonly MyEmailSenderService _emailSenderService;
 
+    private readonly IHubContext<PorukeHub> _hubContext;
 
-    public AuthLoginEndpoint(ApplicationDbContext applicationDbContext, MyEmailSenderService emailSenderService)
+
+    public AuthLoginEndpoint(
+        ApplicationDbContext applicationDbContext, 
+        MyEmailSenderService emailSenderService, 
+        IHubContext<PorukeHub> hubContext
+    )
     {
         _applicationDbContext = applicationDbContext;
         _emailSenderService = emailSenderService;
+        _hubContext = hubContext;
     }
 
     [HttpPost("login")]
@@ -58,6 +67,9 @@ public class AuthLoginEndpoint : MyBaseEndpoint<AuthLoginRequest, MyAuthInfo>
         _applicationDbContext.Add(noviToken);
         await _applicationDbContext.SaveChangesAsync(cancellationToken);
 
+
+        await _hubContext.Groups.AddToGroupAsync(request.SignalRubConnectionID, noviToken.korisnickiNalog.KorisnickoIme,cancellationToken);
+        
         //4- vratiti token string
         return new MyAuthInfo(noviToken);
     }

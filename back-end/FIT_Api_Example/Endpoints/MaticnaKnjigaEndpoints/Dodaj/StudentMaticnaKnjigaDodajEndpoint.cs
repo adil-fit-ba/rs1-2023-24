@@ -39,10 +39,10 @@ public class StudentMaticnaKnjigaDodajEndpoint : MyBaseEndpoint<StudentMaticnaKn
         await _applicationDbContext.AddAsync(noviZapis,cancellationToken);
         await _applicationDbContext.SaveChangesAsync(cancellationToken);
 
-        var student = _applicationDbContext.Student.Find(request.StudentID);
+        var student = await _applicationDbContext.Student.FindAsync(request.StudentID);
 
         string p = "Trenutno vrijeme je " + DateTime.Now;
-        await _porukeHub.Clients.All.SendAsync("prijem_poruke_js", p + " - " + student.BrojIndeksa);
+        await _porukeHub.Clients.Groups("iris").SendAsync("prijem_poruke_js", p + " - " + student.BrojIndeksa, cancellationToken: cancellationToken);
 
         return new NoResponse();
     }

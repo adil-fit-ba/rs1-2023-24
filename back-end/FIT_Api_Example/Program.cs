@@ -61,6 +61,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-app.MapHub<PorukeHub>("/poruke-hub-putanja");
+app.MapHub<PorukeHub>("/poruke-hub-putanja/{myAuthToken}");
 
 app.Run();

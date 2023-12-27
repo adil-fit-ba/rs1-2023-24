@@ -15,7 +15,8 @@ export class Sedmica7LoginComponent implements OnInit {
 
   public loginRequest: AuthLoginRequest = {
     lozinka:"",
-    korisnickoIme:""
+    korisnickoIme:"",
+    signalRubConnectionID:""
   };
   constructor(
     public httpClient:HttpClient,
@@ -28,12 +29,12 @@ export class Sedmica7LoginComponent implements OnInit {
 
   signIn() {
     let url=MojConfig.adresa_servera+`/auth/login`;
-    this.httpClient.post<AuthLoginResponse>(url, this.loginRequest).subscribe((x)=>{
+    this.myAuthService.signIn(this.loginRequest)
+      .subscribe(x=>{
       if (!x.isLogiran){
         alert("pogresan username/pass")
       }
       else{
-        this.myAuthService.setLogiraniKorisnik(x.autentifikacijaToken);
 
         if(this.myAuthService.is2FActive())
         {

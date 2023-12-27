@@ -46,7 +46,7 @@ public class StudentSnimiEndpoint : MyBaseEndpoint<StudentSnimiRequest, int>
         if (!string.IsNullOrEmpty(request.SlikaStudentaNova))
         {
             byte[] byteArray = Convert.FromBase64String(request.SlikaStudentaNova.Split(',')[1]);
-            System.IO.File.WriteAllBytes("slika" + student.ID+".png", byteArray);
+            await System.IO.File.WriteAllBytesAsync("slika" + student.ID+".png", byteArray, cancellationToken);
         }
 
         //student.BrojIndeksa = request.BrojIndeksa;

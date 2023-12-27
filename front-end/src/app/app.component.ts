@@ -15,12 +15,14 @@ export class AppComponent implements OnInit{
   constructor(
     public router: Router,
     public myAuthService: MyAuthService,
-    private signalrRService: SignalrRService) {
+    private signalrRService: SignalrRService
+  ) {
 
-    signalrRService.otvori_ws_konekciju()
   }
 
   ngOnInit(): void {
+    debugger
+    this.signalrRService.otvori_ws_konekciju()
   }
 
   idi(s: string) {

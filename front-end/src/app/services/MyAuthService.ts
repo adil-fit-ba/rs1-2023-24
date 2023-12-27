@@ -8,6 +8,7 @@ import {AuthLoginRequest} from "../components/sedmica7-login/authLoginRequest";
 import {AuthLoginEndpoint} from "../endpoints/auth-endpoints/auth-login.endpoint";
 import {AuthGetEndpoint, AuthGetResponse} from "../endpoints/auth-endpoints/auth-get.endpoint";
 import {AuthLogoutEndpoint} from "../endpoints/auth-endpoints/auth-logout.endpoint";
+import {SignalrRService} from "./signalr-R.service";
 
 @Injectable({providedIn: 'root'})
 export class MyAuthService{
