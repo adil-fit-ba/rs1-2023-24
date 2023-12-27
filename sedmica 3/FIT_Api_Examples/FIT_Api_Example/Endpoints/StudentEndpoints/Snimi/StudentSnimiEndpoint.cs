@@ -9,6 +9,8 @@ using System.Drawing;
 using SkiaSharp;
 using static System.Net.Mime.MediaTypeNames;
 using System.Collections;
+using FIT_Api_Example.SignalR;
+using Microsoft.AspNetCore.SignalR;
 
 namespace FIT_Api_Example.Endpoints.StudentEndpoints.Snimi;
 
@@ -19,10 +21,13 @@ public class StudentSnimiEndpoint : MyBaseEndpoint<StudentSnimiRequest, int>
     private readonly ApplicationDbContext _applicationDbContext;
     private readonly MyAuthService _authService;
 
-    public StudentSnimiEndpoint(ApplicationDbContext applicationDbContext, MyAuthService authService)
+    private readonly IHubContext<SignalRHub> _hubContext;
+
+    public StudentSnimiEndpoint(ApplicationDbContext applicationDbContext, MyAuthService authService, IHubContext<SignalRHub> hubContext)
     {
         _applicationDbContext = applicationDbContext;
         _authService = authService;
+        _hubContext = hubContext;
     }
 
     [HttpPost("snimi")]
@@ -80,6 +85,10 @@ public class StudentSnimiEndpoint : MyBaseEndpoint<StudentSnimiRequest, int>
 
             //1- file system od web servera ili neki treci servis kao sto je azure blob store ili aws 
         }
+  
+        
+        await _hubContext.Clients.All.SendAsync("prijem_poruke_js", "student updated " + student.BrojIndeksa,
+                cancellationToken: cancellationToken);
 
         await _applicationDbContext.SaveChangesAsync(cancellationToken);
 

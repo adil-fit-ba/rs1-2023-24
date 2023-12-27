@@ -74,7 +74,8 @@ export class Sedmica6EditComponent implements OnInit {
 
   snimi(): void {
     this.snimiEndpoint.obradi(this.odabraniStudent!).subscribe((x)=>{
-      alert("uredu")
+      // @ts-ignore
+      porukaSuccess("Uspjesno snimljeno")
       this.ngOnInit();
       this.odabraniStudent = null
     })
