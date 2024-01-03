@@ -87,7 +87,7 @@ public class StudentSnimiEndpoint : MyBaseEndpoint<StudentSnimiRequest, int>
         }
   
         
-        await _hubContext.Clients.All.SendAsync("prijem_poruke_js", "student updated " + student.BrojIndeksa,
+        await _hubContext.Clients.Groups("iris").SendAsync("prijem_poruke_js", "student updated " + student.BrojIndeksa,
                 cancellationToken: cancellationToken);
 
         await _applicationDbContext.SaveChangesAsync(cancellationToken);
