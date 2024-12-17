@@ -5,6 +5,7 @@ import {HttpClient} from "@angular/common/http";
 import {AuthLoginResponse} from "./authLoginResponse";
 import {Router} from "@angular/router";
 import {MyAuthService} from "../../services/MyAuthService";
+import { SignalrRService } from 'src/app/services/signalr-R.service';
 
 @Component({
   selector: 'app-sedmica7-login',
@@ -21,14 +22,16 @@ export class Sedmica7LoginComponent implements OnInit {
   constructor(
     public httpClient:HttpClient,
     private router: Router,
-    private myAuthService:MyAuthService
+    private myAuthService:MyAuthService,
+    private signalRService: SignalrRService
   ) { }
 
   ngOnInit(): void {
   }
 
   signIn() {
-    let url=MojConfig.adresa_servera+`/auth/login`;
+    this.loginRequest.signalRubConnectionID = this.signalRService.getConnectionId();
+    debugger
     this.myAuthService.signIn(this.loginRequest)
       .subscribe(x=>{
       if (!x.isLogiran){
